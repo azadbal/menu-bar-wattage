@@ -1,0 +1,22 @@
+{
+  "timestamp": 1700000060,
+  "source": {
+    "currentmA": -1800,
+    "voltagemV": 11600,
+    "isCharging": false,
+    "isCharged": false,
+    "powerSourceState": "Battery Power",
+    "internalBatteryType": true
+  },
+  "adapter": null,
+  "expected": {
+    "batteryCurrentmA": -1800,
+    "batteryVoltagemV": 11600,
+    "isCharging": false,
+    "isCharged": false,
+    "powerSourceState": "battery",
+    "adapterWatts": null,
+    "batteryPowerW": -20.88,
+    "chargeState": "discharging"
+  }
+}

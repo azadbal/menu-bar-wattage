@@ -1,0 +1,64 @@
+import XCTest
+import PowerCore
+import StatusbarPowerUI
+
+@MainActor
+final class AppLifecycleTests: XCTestCase {
+    func testLifecycleStartStopAndUpdateFlow() {
+        let fakeController = FakeSamplingController()
+        let viewModel = StatusBarViewModel(
+            locale: Locale(identifier: "en_US_POSIX"),
+            timeZone: TimeZone(secondsFromGMT: 0)!
+        )
+
+        let lifecycle = AppLifecycle(engine: fakeController, viewModel: viewModel)
+
+        lifecycle.start()
+
+        XCTAssertTrue(lifecycle.isRunning)
+        XCTAssertEqual(fakeController.startCallCount, 1)
+
+        let update = SamplingUpdate(
+            rawSnapshot: nil,
+            derivedMetrics: DerivedPowerMetrics(
+                batteryPowerW: 24.0,
+                adapterWatts: 67,
+                chargeState: .charging
+            ),
+            smoothedBatteryPowerW: 24.0,
+            history: [HistoryPoint(timestamp: Date(timeIntervalSince1970: 1_700_000_000), batteryPowerW: 24.0)],
+            lastSampleTimestamp: Date(timeIntervalSince1970: 1_700_000_000),
+            errorMessage: nil
+        )
+
+        fakeController.emit(update)
+        RunLoop.main.run(until: Date().addingTimeInterval(0.02))
+
+        XCTAssertEqual(viewModel.statusText, "24W")
+        XCTAssertEqual(viewModel.adapterWattsText, "Adapter Power: 67 W")
+
+        lifecycle.stop()
+
+        XCTAssertFalse(lifecycle.isRunning)
+        XCTAssertEqual(fakeController.stopCallCount, 1)
+    }
+}
+
+private final class FakeSamplingController: SamplingControlling {
+    var onUpdate: ((SamplingUpdate) -> Void)?
+
+    private(set) var startCallCount: Int = 0
+    private(set) var stopCallCount: Int = 0
+
+    func start() {
+        startCallCount += 1
+    }
+
+    func stop() {
+        stopCallCount += 1
+    }
+
+    func emit(_ update: SamplingUpdate) {
+        onUpdate?(update)
+    }
+}

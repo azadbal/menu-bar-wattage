@@ -1,0 +1,24 @@
+{
+  "timestamp": 1700000000,
+  "source": {
+    "currentmA": 2000,
+    "voltagemV": 12000,
+    "isCharging": true,
+    "isCharged": false,
+    "powerSourceState": "AC Power",
+    "internalBatteryType": true
+  },
+  "adapter": {
+    "watts": 70
+  },
+  "expected": {
+    "batteryCurrentmA": 2000,
+    "batteryVoltagemV": 12000,
+    "isCharging": true,
+    "isCharged": false,
+    "powerSourceState": "ac",
+    "adapterWatts": 70,
+    "batteryPowerW": 24,
+    "chargeState": "charging"
+  }
+}

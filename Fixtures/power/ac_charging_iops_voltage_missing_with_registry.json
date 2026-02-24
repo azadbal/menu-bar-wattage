@@ -1,0 +1,31 @@
+{
+  "timestamp": 1700000180,
+  "source": {
+    "currentmA": 2667,
+    "voltagemV": null,
+    "isCharging": true,
+    "isCharged": false,
+    "powerSourceState": "AC Power",
+    "internalBatteryType": true
+  },
+  "adapter": {
+    "watts": 100
+  },
+  "smartBattery": {
+    "amperagemA": 2667,
+    "voltagemV": 12645,
+    "isCharging": true,
+    "externalConnected": true,
+    "externalChargeCapable": true
+  },
+  "expected": {
+    "batteryCurrentmA": 2667,
+    "batteryVoltagemV": 12645,
+    "isCharging": true,
+    "isCharged": false,
+    "powerSourceState": "ac",
+    "adapterWatts": 100,
+    "batteryPowerW": 33.724215,
+    "chargeState": "charging"
+  }
+}
