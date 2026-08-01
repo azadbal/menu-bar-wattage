@@ -2,18 +2,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "StatusbarPowerApp",
+    name: "MenuBarWattageApp",
     platforms: [
         .macOS(.v13)
     ],
     products: [
         .library(
-            name: "StatusbarPowerUI",
-            targets: ["StatusbarPowerUI"]
+            name: "MenuBarWattageUI",
+            targets: ["MenuBarWattageUI"]
         ),
         .executable(
-            name: "StatusbarPowerApp",
-            targets: ["StatusbarPowerApp"]
+            name: "MenuBarWattageApp",
+            targets: ["MenuBarWattageApp"]
         )
     ],
     dependencies: [
@@ -21,22 +21,22 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "StatusbarPowerUI",
+            name: "MenuBarWattageUI",
             dependencies: [
                 .product(name: "PowerCore", package: "PowerCore")
             ]
         ),
         .executableTarget(
-            name: "StatusbarPowerApp",
+            name: "MenuBarWattageApp",
             dependencies: [
-                "StatusbarPowerUI",
+                "MenuBarWattageUI",
                 .product(name: "PowerCore", package: "PowerCore")
             ]
         ),
         .testTarget(
-            name: "StatusbarPowerAppTests",
+            name: "MenuBarWattageAppTests",
             dependencies: [
-                "StatusbarPowerUI",
+                "MenuBarWattageUI",
                 .product(name: "PowerCore", package: "PowerCore")
             ]
         )

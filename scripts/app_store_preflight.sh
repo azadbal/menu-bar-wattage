@@ -2,12 +2,12 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_DIR="$ROOT_DIR/StatusbarPowerApp"
-PROJECT_PATH="$APP_DIR/StatusbarPowerApp.xcodeproj"
-SCHEME="StatusbarPowerApp"
+APP_DIR="$ROOT_DIR/MenuBarWattageApp"
+PROJECT_PATH="$APP_DIR/MenuBarWattageApp.xcodeproj"
+SCHEME="MenuBarWattageApp"
 DERIVED_DATA_PATH="$ROOT_DIR/.build/app_store_derived_data"
-ARCHIVE_PATH="$ROOT_DIR/.build/archives/StatusbarPowerApp.xcarchive"
-ENTITLEMENTS_PATH="$APP_DIR/Resources/StatusbarPowerApp.entitlements"
+ARCHIVE_PATH="$ROOT_DIR/.build/archives/MenuBarWattageApp.xcarchive"
+ENTITLEMENTS_PATH="$APP_DIR/Resources/MenuBarWattageApp.entitlements"
 
 for command_name in xcodegen xcodebuild rg python3 strings; do
   if ! command -v "$command_name" >/dev/null 2>&1; then
@@ -37,7 +37,7 @@ xcodebuild \
   -destination "platform=macOS" \
   -derivedDataPath "$DERIVED_DATA_PATH" \
   CODE_SIGNING_ALLOWED=NO \
-  build >/tmp/statusbar_power_release_build.log
+  build >/tmp/menu_bar_wattage_release_build.log
 
 printf '\n[4/7] Archiving app bundle...\n'
 rm -rf "$ARCHIVE_PATH"
@@ -50,14 +50,14 @@ xcodebuild \
   -archivePath "$ARCHIVE_PATH" \
   SKIP_INSTALL=NO \
   CODE_SIGNING_ALLOWED=NO \
-  archive >/tmp/statusbar_power_archive.log
+  archive >/tmp/menu_bar_wattage_archive.log
 
 if [[ ! -d "$ARCHIVE_PATH" ]]; then
   printf 'Archive missing at %s\n' "$ARCHIVE_PATH"
   exit 1
 fi
 
-APP_BINARY="$ARCHIVE_PATH/Products/Applications/StatusbarPower.app/Contents/MacOS/StatusbarPower"
+APP_BINARY="$ARCHIVE_PATH/Products/Applications/MenuBarWattage.app/Contents/MacOS/MenuBarWattage"
 if [[ ! -f "$APP_BINARY" ]]; then
   printf 'Archived app binary missing at %s\n' "$APP_BINARY"
   exit 1
@@ -86,7 +86,7 @@ PY
 printf '\n[6/7] Scanning sources for forbidden private API paths...\n'
 if rg -n "AppleSmartBattery|IORegistryEntryCreateCFProperty|IOServiceMatching\\(\"AppleSmartBattery\"\)" \
   "$ROOT_DIR/Packages/PowerCore/Sources" \
-  "$ROOT_DIR/StatusbarPowerApp/Sources"; then
+  "$ROOT_DIR/MenuBarWattageApp/Sources"; then
   printf 'Forbidden private telemetry symbols found in production sources.\n'
   exit 1
 fi

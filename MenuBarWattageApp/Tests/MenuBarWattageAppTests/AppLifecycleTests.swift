@@ -1,6 +1,6 @@
 import XCTest
 import PowerCore
-import StatusbarPowerUI
+import MenuBarWattageUI
 
 @MainActor
 final class AppLifecycleTests: XCTestCase {

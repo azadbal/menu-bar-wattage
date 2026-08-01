@@ -1,4 +1,4 @@
-name: StatusbarPowerApp
+name: MenuBarWattageApp
 options:
   deploymentTarget:
     macOS: "13.0"
@@ -11,47 +11,49 @@ packages:
   PowerCore:
     path: ../Packages/PowerCore
 targets:
-  StatusbarPowerUI:
+  MenuBarWattageUI:
     type: framework
     platform: macOS
     sources:
-      - path: Sources/StatusbarPowerUI
+      - path: Sources/MenuBarWattageUI
     dependencies:
       - package: PowerCore
         product: PowerCore
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.azadbalabanian.statusbarpower.ui
+        PRODUCT_BUNDLE_IDENTIFIER: com.azadbalabanian.menubarwattage.ui
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: 2F328AJX43
         ENABLE_HARDENED_RUNTIME: YES
         GENERATE_INFOPLIST_FILE: YES
         MACOSX_DEPLOYMENT_TARGET: "13.0"
 
-  StatusbarPowerApp:
+  MenuBarWattageApp:
     type: application
     platform: macOS
+    productName: MenuBarWattage
     sources:
-      - path: Sources/StatusbarPowerApp
+      - path: Sources/MenuBarWattageApp
     resources:
       - path: Resources/Assets.xcassets
     dependencies:
-      - target: StatusbarPowerUI
+      - target: MenuBarWattageUI
       - package: PowerCore
         product: PowerCore
     info:
       path: Resources/Info.plist
       properties:
         CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleDisplayName: Menu Bar Wattage
         LSApplicationCategoryType: public.app-category.utilities
     entitlements:
-      path: Resources/StatusbarPowerApp.entitlements
+      path: Resources/MenuBarWattageApp.entitlements
       properties:
         com.apple.security.app-sandbox: true
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.azadbalabanian.statusbarpower
-        PRODUCT_NAME: StatusbarPower
+        PRODUCT_BUNDLE_IDENTIFIER: com.azadbalabanian.menubarwattage
+        PRODUCT_NAME: MenuBarWattage
         CODE_SIGN_STYLE: Automatic
         CURRENT_PROJECT_VERSION: 1
         DEVELOPMENT_TEAM: 2F328AJX43
@@ -61,19 +63,19 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     scheme:
       testTargets:
-        - StatusbarPowerAppTests
+        - MenuBarWattageAppTests
 
-  StatusbarPowerAppTests:
+  MenuBarWattageAppTests:
     type: bundle.unit-test
     platform: macOS
     sources:
-      - path: Tests/StatusbarPowerAppTests
+      - path: Tests/MenuBarWattageAppTests
     dependencies:
-      - target: StatusbarPowerUI
+      - target: MenuBarWattageUI
       - package: PowerCore
         product: PowerCore
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.azadbalabanian.statusbarpower.tests
+        PRODUCT_BUNDLE_IDENTIFIER: com.azadbalabanian.menubarwattage.tests
         CODE_SIGN_STYLE: Automatic
         GENERATE_INFOPLIST_FILE: YES

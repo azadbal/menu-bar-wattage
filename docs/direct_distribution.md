@@ -1,6 +1,6 @@
 # Direct Distribution
 
-Statusbar Power has two separate release outputs:
+Menu Bar Wattage has two separate release outputs:
 
 - The Mac App Store build is validated with `scripts/app_store_preflight.sh` and submitted through App Store Connect.
 - The direct-download build is a Developer ID Application-signed, Hardened Runtime, notarized Apple Silicon ZIP attached to a GitHub Release.
@@ -14,7 +14,7 @@ The Mac must have:
 3. A `notarytool` keychain profile configured once, for example:
 
    ```sh
-   xcrun notarytool store-credentials statusbar-power-notary \
+   xcrun notarytool store-credentials menu-bar-wattage-notary \
      --apple-id 'developer@example.com' \
      --team-id '2F328AJX43' \
      --password 'app-specific-password'
@@ -27,7 +27,7 @@ Use an app-specific password, never a normal Apple ID password. The profile name
 From the repository root, set the local profile name and run:
 
 ```sh
-NOTARY_PROFILE=statusbar-power-notary \
+NOTARY_PROFILE=menu-bar-wattage-notary \
 MARKETING_VERSION=1.0.0 \
 CURRENT_PROJECT_VERSION=1 \
 ./scripts/direct_distribution.sh
@@ -36,8 +36,8 @@ CURRENT_PROJECT_VERSION=1 \
 The script regenerates the Xcode project, archives an arm64 app, signs it with `Developer ID Application`, verifies the Hardened Runtime, submits the ZIP to Apple, staples the ticket, validates it with `stapler` and `spctl`, then writes:
 
 ```text
-.build/direct_distribution/StatusbarPower-<version>-<build>-macOS-arm64.zip
-.build/direct_distribution/StatusbarPower-<version>-<build>-macOS-arm64.zip.sha256
+.build/direct_distribution/MenuBarWattage-<version>-<build>-macOS-arm64.zip
+.build/direct_distribution/MenuBarWattage-<version>-<build>-macOS-arm64.zip.sha256
 ```
 
 The ZIP is rebuilt after stapling so the distributed artifact contains the stapled app. The checksum is generated from that final ZIP.
@@ -47,7 +47,7 @@ The ZIP is rebuilt after stapling so the distributed artifact contains the stapl
 Create or select the matching release tag, then upload both files with the opt-in flag:
 
 ```sh
-NOTARY_PROFILE=statusbar-power-notary \
+NOTARY_PROFILE=menu-bar-wattage-notary \
 RELEASE_TAG=v1.0.0 \
 ./scripts/direct_distribution.sh --publish
 ```

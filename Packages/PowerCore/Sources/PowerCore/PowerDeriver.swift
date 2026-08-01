@@ -72,7 +72,7 @@ public enum PowerDeriver {
 
     private static func conversionDivisor() -> Double {
 #if DEBUG
-        if ProcessInfo.processInfo.environment["STATUSBAR_POWER_MUTATION_MODE"] == "bad_divisor" {
+        if ProcessInfo.processInfo.environment["MENU_BAR_WATTAGE_MUTATION_MODE"] == "bad_divisor" {
             return 100_000.0
         }
 #endif
@@ -81,7 +81,7 @@ public enum PowerDeriver {
 
     private static func mutationSignMultiplier() -> Double {
 #if DEBUG
-        if ProcessInfo.processInfo.environment["STATUSBAR_POWER_MUTATION_MODE"] == "flip_sign" {
+        if ProcessInfo.processInfo.environment["MENU_BAR_WATTAGE_MUTATION_MODE"] == "flip_sign" {
             return -1.0
         }
 #endif

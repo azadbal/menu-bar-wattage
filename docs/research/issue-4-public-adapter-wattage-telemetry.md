@@ -1,7 +1,7 @@
 # Issue #4 research: public adapter-wattage telemetry for Apple Silicon App Store builds
 
 **Date:** 2026-08-01  
-**Issue:** [#4](https://github.com/azadbal/statusbar_power/issues/4)  
+**Issue:** [#4](https://github.com/azadbal/menu-bar-wattage/issues/4)
 **Scope:** Apple primary sources only: Apple Developer documentation, the installed Apple SDK headers, and Apple’s App Store rules. No production source was modified.
 
 ## Decision summary
@@ -54,7 +54,7 @@ The `IOKit.ps` path is a documented/public macOS API surface and is compatible w
 
 The current production reader imports `IOKit.ps`, obtains power-source snapshots/descriptions, calls `IOPSCopyExternalPowerAdapterDetails()`, and maps the optional `kIOPSPowerAdapterWattsKey`; it does not use a private IORegistry fallback in the inspected production path. [IOKitPowerTelemetrySource.swift](../../Packages/PowerCore/Sources/PowerCore/IOKitPowerTelemetrySource.swift) [SnapshotMapper.swift](../../Packages/PowerCore/Sources/PowerCore/SnapshotMapper.swift)
 
-The current app entitlements contain App Sandbox, and the repository’s App Store readiness policy already describes adapter power as an adapter-reported readout rather than guaranteed charge rate. [StatusbarPowerApp.entitlements](../../StatusbarPowerApp/Resources/StatusbarPowerApp.entitlements) [App Store readiness checklist](../app_store_readiness.md)
+The current app entitlements contain App Sandbox, and the repository’s App Store readiness policy already describes adapter power as an adapter-reported readout rather than guaranteed charge rate. [MenuBarWattageApp.entitlements](../../MenuBarWattageApp/Resources/MenuBarWattageApp.entitlements) [App Store readiness checklist](../app_store_readiness.md)
 
 ## Recommendation
 

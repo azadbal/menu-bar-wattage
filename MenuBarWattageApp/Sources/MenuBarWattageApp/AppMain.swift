@@ -1,9 +1,9 @@
 import AppKit
 import PowerCore
-import StatusbarPowerUI
+import MenuBarWattageUI
 
 @main
-enum StatusbarPowerEntryPoint {
+enum MenuBarWattageEntryPoint {
     static func main() {
         let app = NSApplication.shared
         let delegate = AppDelegate()

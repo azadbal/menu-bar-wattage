@@ -31,7 +31,7 @@ This document defines the blocking quality gates for this project.
 ```
 
 ## Mutation Strategy
-`PowerDeriver` accepts debug-only mutation mode via `STATUSBAR_POWER_MUTATION_MODE`.
+`PowerDeriver` accepts debug-only mutation mode via `MENU_BAR_WATTAGE_MUTATION_MODE`.
 - `bad_divisor`: uses the wrong conversion divisor.
 - `flip_sign`: inverts computed battery watt sign.
 

@@ -7,7 +7,7 @@ assert_mutation_fails() {
   local mode="$1"
   local filter="$2"
 
-  if STATUSBAR_POWER_MUTATION_MODE="$mode" swift test --package-path "$ROOT_DIR/Packages/PowerCore" --filter "$filter" >/tmp/mutation_guard.log 2>&1; then
+  if MENU_BAR_WATTAGE_MUTATION_MODE="$mode" swift test --package-path "$ROOT_DIR/Packages/PowerCore" --filter "$filter" >/tmp/mutation_guard.log 2>&1; then
     printf 'Mutation mode %s unexpectedly survived tests.\n' "$mode"
     cat /tmp/mutation_guard.log
     exit 1

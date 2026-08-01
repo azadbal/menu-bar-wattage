@@ -1,0 +1,655 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13E7E657FA31F5160853CEBE /* LaunchAtLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2043AD7B2FB3ED8DB2F3B8 /* LaunchAtLoginController.swift */; };
+		1495E019194D506C21F8205F /* AppLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A337ADB2CFAD5A1A43BBEE /* AppLifecycle.swift */; };
+		18026AE86EB378489786649E /* StatusMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F5CAC471D31D07C9CC479B /* StatusMenuView.swift */; };
+		2FBF226DA3450BF602E085B9 /* PowerCore in Frameworks */ = {isa = PBXBuildFile; productRef = A18AFC26EFCE9F17243F6B12 /* PowerCore */; };
+		3CA2B8583F7BD3815DD94D19 /* MenuBarWattageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E3FAB13671FB1D73F993D /* MenuBarWattageUI.framework */; };
+		50FD5443290E44706D2CEDF6 /* MenuBarWattageUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B83E3FAB13671FB1D73F993D /* MenuBarWattageUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		56512A1276B3C0927EA81AF6 /* PowerCore in Frameworks */ = {isa = PBXBuildFile; productRef = 079FDEEDD7A79A969D07E2AE /* PowerCore */; };
+		6EF78C94CACFDFC1CA320E80 /* AppLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C54566C1FC888C4D8F674E /* AppLifecycleTests.swift */; };
+		92ECF9EE7CF0F19AC8928637 /* MenuBarWattageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E3FAB13671FB1D73F993D /* MenuBarWattageUI.framework */; };
+		A1A50809C92E341C562BD8C2 /* MenuBarWattageUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B83E3FAB13671FB1D73F993D /* MenuBarWattageUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D54C1363BDC77E7EEDCBB950 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D2CA3DD3F9739D5098DB91 /* StatusItemController.swift */; };
+		DD05F8423E6469E7D8185985 /* PowerCore in Frameworks */ = {isa = PBXBuildFile; productRef = 8F7509ED3876919DE39067F6 /* PowerCore */; };
+		EB2CE87609109825B800B777 /* AppMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A0E85361EC35BCC8FD609 /* AppMain.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0F057CB4BA2B60C1093CD15E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9882F1ED47E7A328DA8FC73E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C0A55712389BF007D281BAE;
+			remoteInfo = MenuBarWattageUI;
+		};
+		C59226D42DF5EEE952599024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9882F1ED47E7A328DA8FC73E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C0A55712389BF007D281BAE;
+			remoteInfo = MenuBarWattageUI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		093C3DE54C1CEB0A53B23556 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A1A50809C92E341C562BD8C2 /* MenuBarWattageUI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEDB236B67311BC746BE9D2C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				50FD5443290E44706D2CEDF6 /* MenuBarWattageUI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		20D2CA3DD3F9739D5098DB91 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
+		22E4F3C1DD513BFF72887F80 /* PowerCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PowerCore; path = ../Packages/PowerCore; sourceTree = SOURCE_ROOT; };
+		436C180A77A172769A9626D8 /* MenuBarWattage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuBarWattage.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		513A0E85361EC35BCC8FD609 /* AppMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMain.swift; sourceTree = "<group>"; };
+		691A1C784C12DFB0D8ECA31E /* MenuBarWattageAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MenuBarWattageAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		70C54566C1FC888C4D8F674E /* AppLifecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLifecycleTests.swift; sourceTree = "<group>"; };
+		85A337ADB2CFAD5A1A43BBEE /* AppLifecycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLifecycle.swift; sourceTree = "<group>"; };
+		AA2043AD7B2FB3ED8DB2F3B8 /* LaunchAtLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginController.swift; sourceTree = "<group>"; };
+		B83E3FAB13671FB1D73F993D /* MenuBarWattageUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MenuBarWattageUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2F5CAC471D31D07C9CC479B /* StatusMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5ADF31B1E2F7C1DCF24F33A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CA2B8583F7BD3815DD94D19 /* MenuBarWattageUI.framework in Frameworks */,
+				DD05F8423E6469E7D8185985 /* PowerCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D09BB972F587C389CD6DF8C5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92ECF9EE7CF0F19AC8928637 /* MenuBarWattageUI.framework in Frameworks */,
+				2FBF226DA3450BF602E085B9 /* PowerCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8A3CF630608DB7315834FA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56512A1276B3C0927EA81AF6 /* PowerCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5ED461D37E4FDF28A8924583 /* MenuBarWattageApp */ = {
+			isa = PBXGroup;
+			children = (
+				513A0E85361EC35BCC8FD609 /* AppMain.swift */,
+			);
+			path = MenuBarWattageApp;
+			sourceTree = "<group>";
+		};
+		70D72309C10382D0FE76BB8D /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				777915294375B1E212D56899 /* MenuBarWattageAppTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		72E68A3B39C18F003C09D20F /* MenuBarWattageUI */ = {
+			isa = PBXGroup;
+			children = (
+				85A337ADB2CFAD5A1A43BBEE /* AppLifecycle.swift */,
+				AA2043AD7B2FB3ED8DB2F3B8 /* LaunchAtLoginController.swift */,
+				20D2CA3DD3F9739D5098DB91 /* StatusItemController.swift */,
+				C2F5CAC471D31D07C9CC479B /* StatusMenuView.swift */,
+			);
+			path = MenuBarWattageUI;
+			sourceTree = "<group>";
+		};
+		777915294375B1E212D56899 /* MenuBarWattageAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				70C54566C1FC888C4D8F674E /* AppLifecycleTests.swift */,
+			);
+			path = MenuBarWattageAppTests;
+			sourceTree = "<group>";
+		};
+		9D3CE3297A5E5688DB2EE84C = {
+			isa = PBXGroup;
+			children = (
+				BF8E94425FB26176DB5EEA96 /* Packages */,
+				F23EA453436014247AC5CC9D /* Sources */,
+				70D72309C10382D0FE76BB8D /* Tests */,
+				A406555B3B15F07E248DAB3C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A406555B3B15F07E248DAB3C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				436C180A77A172769A9626D8 /* MenuBarWattage.app */,
+				691A1C784C12DFB0D8ECA31E /* MenuBarWattageAppTests.xctest */,
+				B83E3FAB13671FB1D73F993D /* MenuBarWattageUI.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BF8E94425FB26176DB5EEA96 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				22E4F3C1DD513BFF72887F80 /* PowerCore */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		F23EA453436014247AC5CC9D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				5ED461D37E4FDF28A8924583 /* MenuBarWattageApp */,
+				72E68A3B39C18F003C09D20F /* MenuBarWattageUI */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3C0A55712389BF007D281BAE /* MenuBarWattageUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD3D1498DD0F8A41A805B1EA /* Build configuration list for PBXNativeTarget "MenuBarWattageUI" */;
+			buildPhases = (
+				2AC7290A543172BC48A7BBFF /* Sources */,
+				F8A3CF630608DB7315834FA2 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MenuBarWattageUI;
+			packageProductDependencies = (
+				079FDEEDD7A79A969D07E2AE /* PowerCore */,
+			);
+			productName = MenuBarWattageUI;
+			productReference = B83E3FAB13671FB1D73F993D /* MenuBarWattageUI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		57B2D74443A0CEF03A6D41EC /* MenuBarWattageAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC4B9A1E4802C043D484461E /* Build configuration list for PBXNativeTarget "MenuBarWattageAppTests" */;
+			buildPhases = (
+				DC7CCC016F9F7135B9508CAF /* Sources */,
+				D09BB972F587C389CD6DF8C5 /* Frameworks */,
+				093C3DE54C1CEB0A53B23556 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BFE558A54CA54A61D26C23A0 /* PBXTargetDependency */,
+			);
+			name = MenuBarWattageAppTests;
+			packageProductDependencies = (
+				A18AFC26EFCE9F17243F6B12 /* PowerCore */,
+			);
+			productName = MenuBarWattageAppTests;
+			productReference = 691A1C784C12DFB0D8ECA31E /* MenuBarWattageAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D81BDC38259628B82A7416FC /* MenuBarWattageApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4193B1A236E14466474D8D5 /* Build configuration list for PBXNativeTarget "MenuBarWattageApp" */;
+			buildPhases = (
+				42C234E172C6533E33FDA403 /* Sources */,
+				5ADF31B1E2F7C1DCF24F33A9 /* Frameworks */,
+				DEDB236B67311BC746BE9D2C /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8F21A219054D7AD9F6EE43E1 /* PBXTargetDependency */,
+			);
+			name = MenuBarWattageApp;
+			packageProductDependencies = (
+				8F7509ED3876919DE39067F6 /* PowerCore */,
+			);
+			productName = MenuBarWattageApp;
+			productReference = 436C180A77A172769A9626D8 /* MenuBarWattage.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9882F1ED47E7A328DA8FC73E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					3C0A55712389BF007D281BAE = {
+						DevelopmentTeam = 2F328AJX43;
+						ProvisioningStyle = Automatic;
+					};
+					57B2D74443A0CEF03A6D41EC = {
+						ProvisioningStyle = Automatic;
+					};
+					D81BDC38259628B82A7416FC = {
+						DevelopmentTeam = 2F328AJX43;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 60ADA179720429A228098CCC /* Build configuration list for PBXProject "MenuBarWattageApp" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 9D3CE3297A5E5688DB2EE84C;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				69BDDE546DDA36AF137FEA01 /* XCLocalSwiftPackageReference "../Packages/PowerCore" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D81BDC38259628B82A7416FC /* MenuBarWattageApp */,
+				57B2D74443A0CEF03A6D41EC /* MenuBarWattageAppTests */,
+				3C0A55712389BF007D281BAE /* MenuBarWattageUI */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2AC7290A543172BC48A7BBFF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1495E019194D506C21F8205F /* AppLifecycle.swift in Sources */,
+				13E7E657FA31F5160853CEBE /* LaunchAtLoginController.swift in Sources */,
+				D54C1363BDC77E7EEDCBB950 /* StatusItemController.swift in Sources */,
+				18026AE86EB378489786649E /* StatusMenuView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42C234E172C6533E33FDA403 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB2CE87609109825B800B777 /* AppMain.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC7CCC016F9F7135B9508CAF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EF78C94CACFDFC1CA320E80 /* AppLifecycleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8F21A219054D7AD9F6EE43E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3C0A55712389BF007D281BAE /* MenuBarWattageUI */;
+			targetProxy = C59226D42DF5EEE952599024 /* PBXContainerItemProxy */;
+		};
+		BFE558A54CA54A61D26C23A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3C0A55712389BF007D281BAE /* MenuBarWattageUI */;
+			targetProxy = 0F057CB4BA2B60C1093CD15E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		08B00FD6C6B2F3C68F8BA612 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		13442139FB3EDB56E6525D09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.azadbalabanian.menubarwattage.tests;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		5E071677C2849201207C6D8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Resources/MenuBarWattageApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2F328AJX43;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.azadbalabanian.menubarwattage;
+				PRODUCT_NAME = MenuBarWattage;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7C5E0F7AF32731B3FF915A8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2F328AJX43;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.azadbalabanian.menubarwattage.ui;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		A042AE15AD9B2A4D20D0C614 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		CA68EE68908680C3BDD8525F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2F328AJX43;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.azadbalabanian.menubarwattage.ui;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		D019432AB14AAE7D15F9F081 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Resources/MenuBarWattageApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2F328AJX43;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.azadbalabanian.menubarwattage;
+				PRODUCT_NAME = MenuBarWattage;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		ECEC0F0576FD48E4A210DCA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.azadbalabanian.menubarwattage.tests;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		60ADA179720429A228098CCC /* Build configuration list for PBXProject "MenuBarWattageApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A042AE15AD9B2A4D20D0C614 /* Debug */,
+				08B00FD6C6B2F3C68F8BA612 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AD3D1498DD0F8A41A805B1EA /* Build configuration list for PBXNativeTarget "MenuBarWattageUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C5E0F7AF32731B3FF915A8C /* Debug */,
+				CA68EE68908680C3BDD8525F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C4193B1A236E14466474D8D5 /* Build configuration list for PBXNativeTarget "MenuBarWattageApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D019432AB14AAE7D15F9F081 /* Debug */,
+				5E071677C2849201207C6D8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CC4B9A1E4802C043D484461E /* Build configuration list for PBXNativeTarget "MenuBarWattageAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECEC0F0576FD48E4A210DCA2 /* Debug */,
+				13442139FB3EDB56E6525D09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		69BDDE546DDA36AF137FEA01 /* XCLocalSwiftPackageReference "../Packages/PowerCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Packages/PowerCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		079FDEEDD7A79A969D07E2AE /* PowerCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PowerCore;
+		};
+		8F7509ED3876919DE39067F6 /* PowerCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PowerCore;
+		};
+		A18AFC26EFCE9F17243F6B12 /* PowerCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PowerCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 9882F1ED47E7A328DA8FC73E /* Project object */;
+}

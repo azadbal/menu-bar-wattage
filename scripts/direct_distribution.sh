@@ -2,11 +2,11 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_DIR="$ROOT_DIR/StatusbarPowerApp"
-PROJECT_PATH="$APP_DIR/StatusbarPowerApp.xcodeproj"
-SCHEME="StatusbarPowerApp"
+APP_DIR="$ROOT_DIR/MenuBarWattageApp"
+PROJECT_PATH="$APP_DIR/MenuBarWattageApp.xcodeproj"
+SCHEME="MenuBarWattageApp"
 DERIVED_DATA_PATH="${DERIVED_DATA_PATH:-$ROOT_DIR/.build/direct_distribution_derived_data}"
-ARCHIVE_PATH="${ARCHIVE_PATH:-$ROOT_DIR/.build/archives/StatusbarPowerApp-direct.xcarchive}"
+ARCHIVE_PATH="${ARCHIVE_PATH:-$ROOT_DIR/.build/archives/MenuBarWattageApp-direct.xcarchive}"
 ARTIFACT_DIR="${ARTIFACT_DIR:-$ROOT_DIR/.build/direct_distribution}"
 SIGNING_IDENTITY="${SIGNING_IDENTITY:-Developer ID Application}"
 NOTARY_PROFILE="${NOTARY_PROFILE:-}"
@@ -103,7 +103,7 @@ xcodebuild \
   "${build_settings[@]}" \
   archive
 
-APP_PATH="$ARCHIVE_PATH/Products/Applications/StatusbarPower.app"
+APP_PATH="$ARCHIVE_PATH/Products/Applications/MenuBarWattage.app"
 if [[ ! -d "$APP_PATH" ]]; then
   printf 'Archived app missing at %s\n' "$APP_PATH" >&2
   exit 1
@@ -111,7 +111,7 @@ fi
 
 VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP_PATH/Contents/Info.plist")"
 BUILD="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$APP_PATH/Contents/Info.plist")"
-ZIP_PATH="$ARTIFACT_DIR/StatusbarPower-$VERSION-$BUILD-macOS-arm64.zip"
+ZIP_PATH="$ARTIFACT_DIR/MenuBarWattage-$VERSION-$BUILD-macOS-arm64.zip"
 CHECKSUM_PATH="$ZIP_PATH.sha256"
 
 printf '[2/5] Verifying Developer ID signature and Hardened Runtime...\n'
@@ -134,10 +134,10 @@ rm -f "$ZIP_PATH"
 ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "$ZIP_PATH"
 shasum -a 256 "$ZIP_PATH" > "$CHECKSUM_PATH"
 
-FINAL_VERIFY_DIR="$(mktemp -d "${TMPDIR:-/tmp}/statusbar-power-verify.XXXXXX")"
+FINAL_VERIFY_DIR="$(mktemp -d "${TMPDIR:-/tmp}/menu-bar-wattage-verify.XXXXXX")"
 trap 'rm -rf "$FINAL_VERIFY_DIR"' EXIT
 ditto -x -k "$ZIP_PATH" "$FINAL_VERIFY_DIR"
-spctl --assess --type execute --verbose=4 "$FINAL_VERIFY_DIR/StatusbarPower.app"
+spctl --assess --type execute --verbose=4 "$FINAL_VERIFY_DIR/MenuBarWattage.app"
 
 printf '[5/5] Direct-distribution artifacts ready.\n'
 printf 'ZIP: %s\nSHA-256: %s\n' "$ZIP_PATH" "$CHECKSUM_PATH"

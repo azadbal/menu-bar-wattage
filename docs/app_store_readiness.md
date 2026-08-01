@@ -7,11 +7,11 @@
 - Private fallback paths (for example `AppleSmartBattery` IORegistry reads) are not allowed in production source or binary.
 
 ## Required Local Artifacts
-- Xcode project spec: `/Users/azadbalabanian/Desktop/DEV/statusbar_power/StatusbarPowerApp/project.yml`
-- Generated project: `/Users/azadbalabanian/Desktop/DEV/statusbar_power/StatusbarPowerApp/StatusbarPowerApp.xcodeproj`
-- App sandbox entitlements: `/Users/azadbalabanian/Desktop/DEV/statusbar_power/StatusbarPowerApp/Resources/StatusbarPowerApp.entitlements`
-- App metadata plist: `/Users/azadbalabanian/Desktop/DEV/statusbar_power/StatusbarPowerApp/Resources/Info.plist`
-- App icons: `/Users/azadbalabanian/Desktop/DEV/statusbar_power/StatusbarPowerApp/Resources/Assets.xcassets/AppIcon.appiconset`
+- Xcode project spec: `/Users/azadbalabanian/Desktop/DEV/statusbar_power/MenuBarWattageApp/project.yml`
+- Generated project: `/Users/azadbalabanian/Desktop/DEV/statusbar_power/MenuBarWattageApp/MenuBarWattageApp.xcodeproj`
+- App sandbox entitlements: `/Users/azadbalabanian/Desktop/DEV/statusbar_power/MenuBarWattageApp/Resources/MenuBarWattageApp.entitlements`
+- App metadata plist: `/Users/azadbalabanian/Desktop/DEV/statusbar_power/MenuBarWattageApp/Resources/Info.plist`
+- App icons: `/Users/azadbalabanian/Desktop/DEV/statusbar_power/MenuBarWattageApp/Resources/Assets.xcassets/AppIcon.appiconset`
 
 ## Technical Release Gate
 1. Run quality gates:
@@ -29,26 +29,26 @@
 - production sources and archived binary do not contain forbidden private telemetry symbols
 
 ## Xcode Signing Setup
-1. Open `/Users/azadbalabanian/Desktop/DEV/statusbar_power/StatusbarPowerApp/StatusbarPowerApp.xcodeproj`.
-2. Select `StatusbarPowerApp` target and set:
+1. Open `/Users/azadbalabanian/Desktop/DEV/statusbar_power/MenuBarWattageApp/MenuBarWattageApp.xcodeproj`.
+2. Select `MenuBarWattageApp` target and set:
 - Team
 - Bundle identifier for your developer account
 - Automatic signing enabled
 3. Keep App Sandbox enabled with minimal entitlements.
 4. Configure a separate direct-distribution path using a `Developer ID Application` certificate and Hardened Runtime. The App Store and GitHub artifacts must be signed for their respective distribution channels.
 
-Current local state: the Xcode account is selected for team `2F328AJX43`, and an arm64 Apple-development-signed Release build is installed at `/Applications/StatusbarPower.app` for the Launch at Login restart test. Apple Distribution and Developer ID Application certificates are still required for distribution.
+Current local state: the previous app install was removed during the rename. A matching Apple Development signing identity for team `2F328AJX43` is required before installing `MenuBarWattage.app` for the Launch at Login restart test. Apple Distribution and Developer ID Application certificates are still required for distribution.
 
 ## App Store Connect Setup
 1. Create app record:
 - Platform: macOS
-- Bundle ID matching `StatusbarPowerApp` target
+- Bundle ID: `com.azadbalabanian.menubarwattage`
 - SKU, primary language, app name
 2. Fill required metadata:
 - Description and keywords
-- Support URL: `https://github.com/azadbal/statusbar_power`
+- Support URL: `https://github.com/azadbal/menu-bar-wattage`
 - Marketing URL (optional but recommended)
-- Privacy Policy URL (required): `https://github.com/azadbal/statusbar_power/blob/main/PRIVACY.md`
+- Privacy Policy URL (required): `https://github.com/azadbal/menu-bar-wattage/blob/main/PRIVACY.md`
 3. Upload screenshots in valid macOS sizes (at least one set):
 - `1280x800`, `1440x900`, `2560x1600`, or `2880x1800`
 4. Fill review information:
@@ -70,7 +70,7 @@ Current local state: the Xcode account is selected for team `2F328AJX43`, and an
 
 ## GitHub Release Distribution
 1. Build a separately signed Developer ID artifact; do not commit the binary into the Git repository.
-2. Package `StatusbarPower.app` as a versioned ZIP or DMG.
+2. Package `MenuBarWattage.app` as a versioned ZIP or DMG.
 3. Submit the package to Apple with `xcrun notarytool` and staple the ticket with `xcrun stapler`.
 4. Verify the notarized artifact with `spctl` before publishing.
 5. Attach the notarized package and a SHA-256 checksum to the matching GitHub Release.

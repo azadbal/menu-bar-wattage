@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1430"
-   version = "1.3">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "YES"
+      runPostActionsOnFailure = "NO">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -14,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3006C9CF1D907EAD2EAC6FD0"
-               BuildableName = "StatusbarPower.app"
-               BlueprintName = "StatusbarPowerApp"
-               ReferencedContainer = "container:StatusbarPowerApp.xcodeproj">
+               BlueprintIdentifier = "D81BDC38259628B82A7416FC"
+               BuildableName = "MenuBarWattage.app"
+               BlueprintName = "MenuBarWattageApp"
+               ReferencedContainer = "container:MenuBarWattageApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -26,14 +27,15 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "NO">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3006C9CF1D907EAD2EAC6FD0"
-            BuildableName = "StatusbarPower.app"
-            BlueprintName = "StatusbarPowerApp"
-            ReferencedContainer = "container:StatusbarPowerApp.xcodeproj">
+            BlueprintIdentifier = "D81BDC38259628B82A7416FC"
+            BuildableName = "MenuBarWattage.app"
+            BlueprintName = "MenuBarWattageApp"
+            ReferencedContainer = "container:MenuBarWattageApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -42,13 +44,15 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0E0A7E3446111B9BABF833B2"
-               BuildableName = "StatusbarPowerAppTests.xctest"
-               BlueprintName = "StatusbarPowerAppTests"
-               ReferencedContainer = "container:StatusbarPowerApp.xcodeproj">
+               BlueprintIdentifier = "57B2D74443A0CEF03A6D41EC"
+               BuildableName = "MenuBarWattageAppTests.xctest"
+               BlueprintName = "MenuBarWattageAppTests"
+               ReferencedContainer = "container:MenuBarWattageApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -64,12 +68,14 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3006C9CF1D907EAD2EAC6FD0"
-            BuildableName = "StatusbarPower.app"
-            BlueprintName = "StatusbarPowerApp"
-            ReferencedContainer = "container:StatusbarPowerApp.xcodeproj">
+            BlueprintIdentifier = "D81BDC38259628B82A7416FC"
+            BuildableName = "MenuBarWattage.app"
+            BlueprintName = "MenuBarWattageApp"
+            ReferencedContainer = "container:MenuBarWattageApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -81,12 +87,14 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3006C9CF1D907EAD2EAC6FD0"
-            BuildableName = "StatusbarPower.app"
-            BlueprintName = "StatusbarPowerApp"
-            ReferencedContainer = "container:StatusbarPowerApp.xcodeproj">
+            BlueprintIdentifier = "D81BDC38259628B82A7416FC"
+            BuildableName = "MenuBarWattage.app"
+            BlueprintName = "MenuBarWattageApp"
+            ReferencedContainer = "container:MenuBarWattageApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

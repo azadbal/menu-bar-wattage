@@ -1,9 +1,9 @@
 # Manual Hardware Verification Checklist
 
 ## Preconditions
-- For the Launch at Login test, use the signed Release copy installed at `/Applications/StatusbarPower.app`.
+- For the Launch at Login test, use the signed Release copy installed at `/Applications/MenuBarWattage.app`.
 - Confirm a status item appears in the menu bar.
-- Click the status item and confirm the menu is compact, names Statusbar Power, shows one current-state line, and contains Launch at Login and Quit.
+- Click the status item and confirm the menu is compact, names Menu Bar Wattage, shows one current-state line, and contains Launch at Login and Quit.
 - Run `/Users/azadbalabanian/Desktop/DEV/statusbar_power/scripts/diagnose_live_power.sh` to capture current telemetry baselines.
 - Keep `pmset -g batt` running in a separate terminal for reference.
 

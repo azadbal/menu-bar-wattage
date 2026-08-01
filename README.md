@@ -1,6 +1,6 @@
-# Statusbar Power
+# Menu Bar Wattage
 
-Statusbar Power is a small macOS menu-bar utility for checking the wattage reported by your connected charging adapter.
+Menu Bar Wattage is a small macOS menu-bar utility for checking the wattage reported by your connected charging adapter.
 
 ## What the menu-bar value means
 
@@ -19,11 +19,11 @@ Click the value to see the app name, the current-state explanation, Launch at Lo
 
 ## Privacy
 
-Statusbar Power does not make network requests, use analytics, require an account, or collect user data. See the [privacy statement](PRIVACY.md).
+Menu Bar Wattage does not make network requests, use analytics, require an account, or collect user data. See the [privacy statement](PRIVACY.md).
 
 ## Support
 
-For help or to report a bug, [open a GitHub issue](https://github.com/azadbal/statusbar_power/issues/new). Include your macOS version, Mac model, adapter model/wattage, whether the Mac was plugged in, and what the menu-bar value showed.
+For help or to report a bug, [open a GitHub issue](https://github.com/azadbal/menu-bar-wattage/issues/new). Include your macOS version, Mac model, adapter model/wattage, whether the Mac was plugged in, and what the menu-bar value showed.
 
 Before reporting a problem, you can capture local power-source diagnostics with:
 

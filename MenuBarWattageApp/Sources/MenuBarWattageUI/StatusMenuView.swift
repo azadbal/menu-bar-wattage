@@ -6,7 +6,7 @@ struct StatusMenuView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Statusbar Power")
+            Text("Menu Bar Wattage")
                 .font(.headline)
 
             Text(viewModel.statusDetailText)
