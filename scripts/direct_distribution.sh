@@ -58,6 +58,10 @@ if [[ -z "$NOTARY_PROFILE" ]]; then
 fi
 
 if [[ "$publish" == true ]]; then
+  if ! command -v git >/dev/null 2>&1; then
+    printf 'Missing required command: git (needed for --publish)\n' >&2
+    exit 1
+  fi
   if ! command -v gh >/dev/null 2>&1; then
     printf 'Missing required command: gh (needed for --publish)\n' >&2
     exit 1
@@ -143,13 +147,45 @@ printf '[5/5] Direct-distribution artifacts ready.\n'
 printf 'ZIP: %s\nSHA-256: %s\n' "$ZIP_PATH" "$CHECKSUM_PATH"
 
 if [[ "$publish" == true ]]; then
-  if [[ "$RELEASE_TAG" != "v$VERSION" && "$RELEASE_TAG" != "$VERSION" ]]; then
-    printf 'RELEASE_TAG %s does not match app version %s.\n' "$RELEASE_TAG" "$VERSION" >&2
+  if [[ "$RELEASE_TAG" != "v$VERSION" ]]; then
+    printf 'RELEASE_TAG must be v%s, got %s.\n' "$VERSION" "$RELEASE_TAG" >&2
     exit 1
   fi
-  RELEASE_TAG_FROM_GITHUB="$(gh release view "$RELEASE_TAG" --json tagName --jq '.tagName')"
-  if [[ "$RELEASE_TAG_FROM_GITHUB" != "$RELEASE_TAG" ]]; then
-    printf 'GitHub Release %s was not found.\n' "$RELEASE_TAG" >&2
+  CURRENT_COMMIT="$(git rev-parse HEAD)"
+  TAG_REF="repos/{owner}/{repo}/git/ref/tags/$RELEASE_TAG"
+  set +e
+  TAG_TYPE="$(gh api "$TAG_REF" --jq '.object.type' 2>&1)"
+  TAG_STATUS=$?
+  set -e
+  if [[ "$TAG_STATUS" -eq 0 ]]; then
+    TAG_SHA="$(gh api "$TAG_REF" --jq '.object.sha')"
+    if [[ "$TAG_TYPE" == tag ]]; then
+      TAG_SHA="$(gh api "repos/{owner}/{repo}/git/tags/$TAG_SHA" --jq '.object.sha')"
+    fi
+    if [[ "$TAG_TYPE" != commit && "$TAG_TYPE" != tag ]] || [[ "$TAG_SHA" != "$CURRENT_COMMIT" ]]; then
+      printf 'GitHub tag %s does not point to current commit %s.\n' "$RELEASE_TAG" "$CURRENT_COMMIT" >&2
+      exit 1
+    fi
+  elif printf '%s\n' "$TAG_TYPE" | rg -q 'HTTP 404|HTTP/[0-9.]+ 404|Not Found'; then
+    gh release create "$RELEASE_TAG" \
+      --target "$CURRENT_COMMIT" \
+      --title "Menu Bar Wattage $VERSION" \
+      --notes "Direct-download Developer ID release for Menu Bar Wattage $VERSION."
+  else
+    printf 'Unable to inspect GitHub tag %s:\n%s\n' "$RELEASE_TAG" "$TAG_TYPE" >&2
+    exit 1
+  fi
+  set +e
+  RELEASE_VIEW="$(gh release view "$RELEASE_TAG" --json tagName 2>&1)"
+  RELEASE_STATUS=$?
+  set -e
+  if [[ "$RELEASE_STATUS" -ne 0 ]] && printf '%s\n' "$RELEASE_VIEW" | rg -q 'HTTP 404|HTTP/[0-9.]+ 404|not found|Not Found'; then
+    gh release create "$RELEASE_TAG" \
+      --verify-tag \
+      --title "Menu Bar Wattage $VERSION" \
+      --notes "Direct-download Developer ID release for Menu Bar Wattage $VERSION."
+  elif [[ "$RELEASE_STATUS" -ne 0 ]]; then
+    printf 'Unable to inspect GitHub Release %s:\n%s\n' "$RELEASE_TAG" "$RELEASE_VIEW" >&2
     exit 1
   fi
   gh release upload "$RELEASE_TAG" "$ZIP_PATH" "$CHECKSUM_PATH" --clobber

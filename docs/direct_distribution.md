@@ -44,7 +44,7 @@ The ZIP is rebuilt after stapling so the distributed artifact contains the stapl
 
 ## Publish a GitHub Release
 
-Create or select the matching release tag, then upload both files with the opt-in flag:
+Run the opt-in publish flow after notarization. It creates GitHub Release `v1.0.0` against the current commit if the release does not exist, then uploads both files:
 
 ```sh
 NOTARY_PROFILE=menu-bar-wattage-notary \
@@ -52,7 +52,7 @@ RELEASE_TAG=v1.0.0 \
 ./scripts/direct_distribution.sh --publish
 ```
 
-This requires an authenticated `gh` CLI and an existing GitHub Release for `RELEASE_TAG`. Do not commit the ZIP, DMG, archive, signing identities, Apple credentials, or notarization profile to the repository.
+This requires an authenticated `gh` CLI and a release tag that points to the current commit. Do not commit the ZIP, DMG, archive, signing identities, Apple credentials, or notarization profile to the repository.
 
 ## Troubleshooting and manual fallback
 
