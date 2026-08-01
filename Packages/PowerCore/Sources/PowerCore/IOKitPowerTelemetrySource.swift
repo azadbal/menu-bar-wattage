@@ -4,11 +4,8 @@ import IOKit.ps
 public final class IOKitPowerTelemetrySource: PowerTelemetrySource {
     private var notificationSource: CFRunLoopSource?
     private var notificationHandler: (() -> Void)?
-    private let smartBatteryReader: AppleSmartBatteryReader
 
-    public init() {
-        self.smartBatteryReader = AppleSmartBatteryReader()
-    }
+    public init() {}
 
     deinit {
         stopNotifications()
@@ -44,13 +41,9 @@ public final class IOKitPowerTelemetrySource: PowerTelemetrySource {
             throw PowerTelemetryError.invalidPowerSourcePayload
         }
 
-        let adapterDetails = readAdapterDetails()
-        let smartBattery = smartBatteryReader.readSnapshot()
-
         return Self.mergedSnapshot(
             sourceDescription: sourceDescription,
-            adapterDetails: adapterDetails,
-            smartBatterySnapshot: smartBattery,
+            adapterDetails: readAdapterDetails(),
             now: now
         )
     }
@@ -97,23 +90,12 @@ public final class IOKitPowerTelemetrySource: PowerTelemetrySource {
     static func mergedSnapshot(
         sourceDescription: [String: Any],
         adapterDetails: [String: Any]?,
-        smartBatterySnapshot: AppleSmartBatterySnapshot?,
         now: Date
     ) -> RawPowerSnapshot {
-        let iopsSnapshot = SnapshotMapper.map(
+        SnapshotMapper.map(
             sourceDescription: sourceDescription,
             adapterDetails: adapterDetails,
             now: now
-        )
-
-        return RawPowerSnapshot(
-            batteryCurrentmA: iopsSnapshot.batteryCurrentmA ?? smartBatterySnapshot?.amperagemA,
-            batteryVoltagemV: iopsSnapshot.batteryVoltagemV ?? smartBatterySnapshot?.voltagemV,
-            isCharging: iopsSnapshot.isCharging ?? smartBatterySnapshot?.isCharging,
-            isCharged: iopsSnapshot.isCharged,
-            powerSourceState: iopsSnapshot.powerSourceState,
-            adapterWatts: iopsSnapshot.adapterWatts,
-            timestamp: now
         )
     }
 }

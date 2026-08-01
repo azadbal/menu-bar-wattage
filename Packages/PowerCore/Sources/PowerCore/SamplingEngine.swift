@@ -8,8 +8,6 @@ public final class SamplingEngine: @unchecked Sendable {
     private let now: () -> Date
     private let workQueue: DispatchQueue
     private let callbackQueue: DispatchQueue
-    private let filter: RollingAverageFilter
-    private let history: HistoryRingBuffer
 
     private var timer: DispatchSourceTimer?
     private var isRunning: Bool
@@ -19,8 +17,6 @@ public final class SamplingEngine: @unchecked Sendable {
     public init(
         source: PowerTelemetrySource,
         sampleInterval: TimeInterval = 1.0,
-        filterWindowSize: Int = 5,
-        historyCapacity: Int = 1800,
         now: @escaping () -> Date = Date.init,
         callbackQueue: DispatchQueue = .main,
         workQueue: DispatchQueue = DispatchQueue(label: "PowerCore.SamplingEngine", qos: .utility)
@@ -30,8 +26,6 @@ public final class SamplingEngine: @unchecked Sendable {
         self.now = now
         self.callbackQueue = callbackQueue
         self.workQueue = workQueue
-        self.filter = RollingAverageFilter(windowSize: filterWindowSize)
-        self.history = HistoryRingBuffer(capacity: historyCapacity)
         self.isRunning = false
     }
 
@@ -90,10 +84,6 @@ public final class SamplingEngine: @unchecked Sendable {
         performSample()
     }
 
-    public var historyPoints: [HistoryPoint] {
-        history.points
-    }
-
     private func performSample() -> SamplingUpdate {
         let timestamp = now()
 
@@ -101,23 +91,9 @@ public final class SamplingEngine: @unchecked Sendable {
             let rawSnapshot = try source.readSnapshot(now: timestamp)
             let derivedMetrics = PowerDeriver.derive(from: rawSnapshot)
 
-            var smoothedBatteryPowerW: Double?
-            if let batteryPowerW = derivedMetrics.batteryPowerW {
-                let averaged = filter.add(batteryPowerW)
-                smoothedBatteryPowerW = averaged
-                _ = history.append(
-                    HistoryPoint(
-                        timestamp: rawSnapshot.timestamp,
-                        batteryPowerW: averaged
-                    )
-                )
-            }
-
             let update = SamplingUpdate(
                 rawSnapshot: rawSnapshot,
                 derivedMetrics: derivedMetrics,
-                smoothedBatteryPowerW: smoothedBatteryPowerW,
-                history: history.points,
                 lastSampleTimestamp: rawSnapshot.timestamp,
                 errorMessage: nil
             )
@@ -128,8 +104,6 @@ public final class SamplingEngine: @unchecked Sendable {
             let update = SamplingUpdate(
                 rawSnapshot: nil,
                 derivedMetrics: nil,
-                smoothedBatteryPowerW: nil,
-                history: history.points,
                 lastSampleTimestamp: timestamp,
                 errorMessage: String(describing: error)
             )

@@ -13,7 +13,8 @@ public enum PowerDeriver {
         return DerivedPowerMetrics(
             batteryPowerW: batteryPowerW,
             adapterWatts: raw.adapterWatts,
-            chargeState: resolveChargeState(from: raw)
+            chargeState: resolveChargeState(from: raw),
+            powerSourceState: raw.powerSourceState
         )
     }
 

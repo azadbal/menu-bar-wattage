@@ -7,41 +7,38 @@ final class StatusBarViewModelTests: XCTestCase {
         let viewModel = StatusBarViewModel(locale: Locale(identifier: "en_US_POSIX"), timeZone: TimeZone(secondsFromGMT: 0)!)
         let now = Date(timeIntervalSince1970: 1_700_000_000)
 
-        viewModel.apply(update: SamplingUpdate(
-            rawSnapshot: nil,
-            derivedMetrics: DerivedPowerMetrics(batteryPowerW: 42.4, adapterWatts: 70, chargeState: .charging),
-            smoothedBatteryPowerW: 42.4,
-            history: [],
-            lastSampleTimestamp: now,
-            errorMessage: nil
-        ))
-        XCTAssertEqual(viewModel.statusText, "42W")
+        XCTAssertEqual(viewModel.statusText, "-")
 
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
-            derivedMetrics: DerivedPowerMetrics(batteryPowerW: -18.3, adapterWatts: nil, chargeState: .discharging),
-            smoothedBatteryPowerW: -18.3,
-            history: [],
+            derivedMetrics: DerivedPowerMetrics(batteryPowerW: 42.4, adapterWatts: 70, chargeState: .charging, powerSourceState: .ac),
             lastSampleTimestamp: now,
             errorMessage: nil
         ))
-        XCTAssertEqual(viewModel.statusText, "On Battery")
+        XCTAssertEqual(viewModel.statusText, "70W")
+        XCTAssertNil(viewModel.statusExplanationText)
 
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
-            derivedMetrics: DerivedPowerMetrics(batteryPowerW: nil, adapterWatts: 70, chargeState: .charged),
-            smoothedBatteryPowerW: nil,
-            history: [],
+            derivedMetrics: DerivedPowerMetrics(batteryPowerW: -18.3, adapterWatts: nil, chargeState: .discharging, powerSourceState: .battery),
             lastSampleTimestamp: now,
             errorMessage: nil
         ))
-        XCTAssertEqual(viewModel.statusText, "Charged")
+        XCTAssertEqual(viewModel.statusText, "-")
+        XCTAssertEqual(viewModel.statusExplanationText, "No external power is connected, so there is no adapter wattage to show.")
 
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
-            derivedMetrics: DerivedPowerMetrics(batteryPowerW: nil, adapterWatts: 96, chargeState: .charging),
-            smoothedBatteryPowerW: nil,
-            history: [],
+            derivedMetrics: DerivedPowerMetrics(batteryPowerW: nil, adapterWatts: 70, chargeState: .charged, powerSourceState: .ac),
+            lastSampleTimestamp: now,
+            errorMessage: nil
+        ))
+        XCTAssertEqual(viewModel.statusText, "70W")
+        XCTAssertNil(viewModel.statusExplanationText)
+
+        viewModel.apply(update: SamplingUpdate(
+            rawSnapshot: nil,
+            derivedMetrics: DerivedPowerMetrics(batteryPowerW: nil, adapterWatts: 96, chargeState: .charging, powerSourceState: .ac),
             lastSampleTimestamp: now,
             errorMessage: nil
         ))
@@ -49,13 +46,21 @@ final class StatusBarViewModelTests: XCTestCase {
 
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
+            derivedMetrics: DerivedPowerMetrics(batteryPowerW: nil, adapterWatts: nil, chargeState: .charging, powerSourceState: .ac),
+            lastSampleTimestamp: now,
+            errorMessage: nil
+        ))
+        XCTAssertEqual(viewModel.statusText, "-")
+        XCTAssertEqual(viewModel.statusExplanationText, "Adapter wattage is unavailable.")
+
+        viewModel.apply(update: SamplingUpdate(
+            rawSnapshot: nil,
             derivedMetrics: nil,
-            smoothedBatteryPowerW: nil,
-            history: [],
             lastSampleTimestamp: now,
             errorMessage: "oops"
         ))
-        XCTAssertEqual(viewModel.statusText, "No Data")
+        XCTAssertEqual(viewModel.statusText, "-")
+        XCTAssertEqual(viewModel.statusExplanationText, "No external power is connected, so there is no adapter wattage to show.")
     }
 
     func testDropdownTextsAndTimestampFormatting() {
@@ -64,28 +69,20 @@ final class StatusBarViewModelTests: XCTestCase {
 
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
-            derivedMetrics: DerivedPowerMetrics(batteryPowerW: 24.0, adapterWatts: 67, chargeState: .charging),
-            smoothedBatteryPowerW: 24.0,
-            history: [HistoryPoint(timestamp: now, batteryPowerW: 24.0)],
+            derivedMetrics: DerivedPowerMetrics(batteryPowerW: 24.0, adapterWatts: 67, chargeState: .charging, powerSourceState: .ac),
             lastSampleTimestamp: now,
             errorMessage: nil
         ))
 
-        XCTAssertEqual(viewModel.batteryWattsText, "Battery Power: 24.0 W")
         XCTAssertEqual(viewModel.adapterWattsText, "Adapter Power: 67 W")
         XCTAssertEqual(viewModel.lastUpdatedText, "Updated: 22:13:20")
-        XCTAssertEqual(viewModel.history.count, 1)
-
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
             derivedMetrics: DerivedPowerMetrics(batteryPowerW: nil, adapterWatts: nil, chargeState: .unknown),
-            smoothedBatteryPowerW: nil,
-            history: [],
             lastSampleTimestamp: nil,
             errorMessage: nil
         ))
 
-        XCTAssertEqual(viewModel.batteryWattsText, "Battery Power: Unavailable")
         XCTAssertEqual(viewModel.adapterWattsText, "Adapter Power: Unavailable")
         XCTAssertEqual(viewModel.lastUpdatedText, "Updated: --")
     }

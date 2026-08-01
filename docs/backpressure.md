@@ -3,8 +3,9 @@
 This document defines the blocking quality gates for this project.
 
 ## Goal Lock
-- Primary goal: a macOS menu bar app that reports charging watts with fallback states and a 30-minute battery history graph.
-- Accepted status values: `NNW`, `On Battery`, `Charged`, `No Data`.
+- Primary goal: a macOS menu bar app that reports adapter-reported watts when external power is connected.
+- Accepted compact status values: `NNW` when adapter watts are available, `-` otherwise.
+- Adapter watts are not a claim about real-time battery charging rate or total Mac power consumption.
 
 ## Mandatory Gates
 1. No production behavior change without a failing test or fixture first.
@@ -17,6 +18,11 @@ This document defines the blocking quality gates for this project.
 - Run all local checks:
 ```bash
 /Users/azadbalabanian/Desktop/DEV/statusbar_power/scripts/test_all.sh
+```
+
+- Run App Store preflight gate:
+```bash
+/Users/azadbalabanian/Desktop/DEV/statusbar_power/scripts/app_store_preflight.sh
 ```
 
 - Run mutation guard only:
@@ -34,8 +40,6 @@ The mutation guard script expects both modes to fail protected tests. A mutation
 ## Runtime Invariants
 - Non-finite battery power is rejected.
 - Absurd battery power (`> 300W` absolute) is rejected.
-- History ring buffer rejects non-monotonic timestamps and duplicate timestamps.
-- History is bounded to configured capacity.
 
 ## Manual Validation Trigger
 After automated gates pass, complete:

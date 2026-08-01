@@ -1,0 +1,71 @@
+name: StatusbarPowerApp
+options:
+  deploymentTarget:
+    macOS: "13.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+packages:
+  PowerCore:
+    path: ../Packages/PowerCore
+targets:
+  StatusbarPowerUI:
+    type: framework
+    platform: macOS
+    sources:
+      - path: Sources/StatusbarPowerUI
+    dependencies:
+      - package: PowerCore
+        product: PowerCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.azadbalabanian.statusbarpower.ui
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
+        MACOSX_DEPLOYMENT_TARGET: "13.0"
+
+  StatusbarPowerApp:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/StatusbarPowerApp
+    resources:
+      - path: Resources/Assets.xcassets
+    dependencies:
+      - target: StatusbarPowerUI
+      - package: PowerCore
+        product: PowerCore
+    info:
+      path: Resources/Info.plist
+    entitlements:
+      path: Resources/StatusbarPowerApp.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.azadbalabanian.statusbarpower
+        PRODUCT_NAME: StatusbarPower
+        CODE_SIGN_STYLE: Automatic
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 1.0.0
+        MACOSX_DEPLOYMENT_TARGET: "13.0"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    scheme:
+      testTargets:
+        - StatusbarPowerAppTests
+
+  StatusbarPowerAppTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/StatusbarPowerAppTests
+    dependencies:
+      - target: StatusbarPowerUI
+      - package: PowerCore
+        product: PowerCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.azadbalabanian.statusbarpower.tests
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES

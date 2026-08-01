@@ -3,27 +3,20 @@ import IOKit.ps
 @testable import PowerCore
 
 final class IOKitPowerTelemetrySourceFallbackTests: XCTestCase {
-    func testUsesSmartBatteryVoltageWhenIOPSVoltageMissing() {
+    func testUsesIOPSBatteryValuesWhenPresent() {
         let sourceDescription: [String: Any] = [
             kIOPSCurrentKey as String: 2500,
+            kIOPSVoltageKey as String: 12500,
             kIOPSIsChargingKey as String: true,
             kIOPSPowerSourceStateKey as String: kIOPSACPowerValue as String
         ]
         let adapterDetails: [String: Any] = [
             kIOPSPowerAdapterWattsKey as String: 96
         ]
-        let smartBattery = AppleSmartBatterySnapshot(
-            amperagemA: 2600,
-            voltagemV: 12500,
-            isCharging: true,
-            externalConnected: true,
-            externalChargeCapable: true
-        )
 
         let snapshot = IOKitPowerTelemetrySource.mergedSnapshot(
             sourceDescription: sourceDescription,
             adapterDetails: adapterDetails,
-            smartBatterySnapshot: smartBattery,
             now: Date(timeIntervalSince1970: 1_700_000_000)
         )
         let derived = PowerDeriver.derive(from: snapshot)
@@ -35,56 +28,53 @@ final class IOKitPowerTelemetrySourceFallbackTests: XCTestCase {
         XCTAssertEqual(derived.batteryPowerW ?? .nan, 31.25, accuracy: 0.0001)
     }
 
-    func testUsesSmartBatteryCurrentWhenIOPSCurrentMissing() {
+    func testKeepsNilVoltageWhenIOPSVoltageMissing() {
         let sourceDescription: [String: Any] = [
-            kIOPSVoltageKey as String: 12200,
+            kIOPSCurrentKey as String: 2300,
+            kIOPSIsChargingKey as String: true,
             kIOPSPowerSourceStateKey as String: kIOPSACPowerValue as String
         ]
-        let smartBattery = AppleSmartBatterySnapshot(
-            amperagemA: 2300,
-            voltagemV: 12600,
-            isCharging: true,
-            externalConnected: true,
-            externalChargeCapable: true
-        )
+        let adapterDetails: [String: Any] = [
+            kIOPSPowerAdapterWattsKey as String: 65
+        ]
 
         let snapshot = IOKitPowerTelemetrySource.mergedSnapshot(
             sourceDescription: sourceDescription,
-            adapterDetails: nil,
-            smartBatterySnapshot: smartBattery,
+            adapterDetails: adapterDetails,
             now: Date(timeIntervalSince1970: 1_700_000_000)
         )
         let derived = PowerDeriver.derive(from: snapshot)
 
         XCTAssertEqual(snapshot.batteryCurrentmA, 2300)
-        XCTAssertEqual(snapshot.batteryVoltagemV, 12200)
+        XCTAssertNil(snapshot.batteryVoltagemV)
         XCTAssertEqual(snapshot.isCharging, true)
-        XCTAssertEqual(derived.batteryPowerW ?? .nan, 28.06, accuracy: 0.0001)
+        XCTAssertEqual(snapshot.adapterWatts, 65)
+        XCTAssertNil(derived.batteryPowerW)
+        XCTAssertEqual(derived.chargeState, .charging)
     }
 
-    func testKeepsNilPowerWhenBothSourcesMissingCurrentOrVoltage() {
-        let sourceDescription: [String: Any] = [
-            kIOPSPowerSourceStateKey as String: kIOPSACPowerValue as String,
-            kIOPSIsChargingKey as String: true
+    func testKeepsNilPowerWhenCurrentOrVoltageMissing() {
+        let missingCurrentSource: [String: Any] = [
+            kIOPSVoltageKey as String: 12200,
+            kIOPSPowerSourceStateKey as String: kIOPSACPowerValue as String
         ]
-        let smartBattery = AppleSmartBatterySnapshot(
-            amperagemA: nil,
-            voltagemV: nil,
-            isCharging: true,
-            externalConnected: true,
-            externalChargeCapable: true
-        )
+        let missingVoltageSource: [String: Any] = [
+            kIOPSCurrentKey as String: 2300,
+            kIOPSPowerSourceStateKey as String: kIOPSACPowerValue as String
+        ]
 
-        let snapshot = IOKitPowerTelemetrySource.mergedSnapshot(
-            sourceDescription: sourceDescription,
+        let missingCurrent = IOKitPowerTelemetrySource.mergedSnapshot(
+            sourceDescription: missingCurrentSource,
             adapterDetails: nil,
-            smartBatterySnapshot: smartBattery,
             now: Date(timeIntervalSince1970: 1_700_000_000)
         )
-        let derived = PowerDeriver.derive(from: snapshot)
+        let missingVoltage = IOKitPowerTelemetrySource.mergedSnapshot(
+            sourceDescription: missingVoltageSource,
+            adapterDetails: nil,
+            now: Date(timeIntervalSince1970: 1_700_000_001)
+        )
 
-        XCTAssertNil(snapshot.batteryCurrentmA)
-        XCTAssertNil(snapshot.batteryVoltagemV)
-        XCTAssertNil(derived.batteryPowerW)
+        XCTAssertNil(PowerDeriver.derive(from: missingCurrent).batteryPowerW)
+        XCTAssertNil(PowerDeriver.derive(from: missingVoltage).batteryPowerW)
     }
 }

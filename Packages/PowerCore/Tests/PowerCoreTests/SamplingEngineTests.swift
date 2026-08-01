@@ -32,41 +32,10 @@ final class SamplingEngineTests: XCTestCase {
 
         let first = engine.sampleNowForTesting()
         XCTAssertNotNil(first.errorMessage)
-        XCTAssertEqual(first.history.count, 0)
-
         let second = engine.sampleNowForTesting()
         XCTAssertNil(second.errorMessage)
         XCTAssertEqual(second.derivedMetrics?.chargeState, .charging)
-        XCTAssertEqual(second.history.count, 1)
-    }
-
-    func testDuplicateTimestampsAreNotAddedToHistory() {
-        let timestamp = Date(timeIntervalSince1970: 1_700_000_000)
-        let snapshot = RawPowerSnapshot(
-            batteryCurrentmA: -1800,
-            batteryVoltagemV: 12000,
-            isCharging: false,
-            isCharged: false,
-            powerSourceState: .battery,
-            adapterWatts: nil,
-            timestamp: timestamp
-        )
-
-        let source = FakePowerTelemetrySource(reads: [.success(snapshot), .success(snapshot)])
-        let clock = TestClock([timestamp, timestamp])
-
-        let engine = SamplingEngine(
-            source: source,
-            sampleInterval: 100,
-            now: { clock.next() },
-            callbackQueue: .main,
-            workQueue: DispatchQueue(label: "SamplingEngineTests.Dedup")
-        )
-
-        _ = engine.sampleNowForTesting()
-        let second = engine.sampleNowForTesting()
-
-        XCTAssertEqual(second.history.count, 1)
+        XCTAssertEqual(second.derivedMetrics?.adapterWatts, 67)
     }
 
     func testNotificationTriggersImmediateSample() {

@@ -11,21 +11,14 @@
   "adapter": {
     "watts": 100
   },
-  "smartBattery": {
-    "amperagemA": 2667,
-    "voltagemV": 12645,
-    "isCharging": true,
-    "externalConnected": true,
-    "externalChargeCapable": true
-  },
   "expected": {
     "batteryCurrentmA": 2667,
-    "batteryVoltagemV": 12645,
+    "batteryVoltagemV": null,
     "isCharging": true,
     "isCharged": false,
     "powerSourceState": "ac",
     "adapterWatts": 100,
-    "batteryPowerW": 33.724215,
+    "batteryPowerW": null,
     "chargeState": "charging"
   }
 }

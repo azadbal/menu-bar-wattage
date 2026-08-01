@@ -26,13 +26,11 @@ final class FixtureReplayTests: XCTestCase {
 
             let source = fixture.source.asPowerSourceDictionary()
             let adapter = fixture.adapter?.asAdapterDictionary()
-            let smartBattery = fixture.smartBattery?.asSmartBatterySnapshot()
             let now = Date(timeIntervalSince1970: fixture.timestamp)
 
             let snapshot = IOKitPowerTelemetrySource.mergedSnapshot(
                 sourceDescription: source,
                 adapterDetails: adapter,
-                smartBatterySnapshot: smartBattery,
                 now: now
             )
             let derived = PowerDeriver.derive(from: snapshot)
@@ -58,7 +56,6 @@ private struct PowerFixture: Codable {
     let timestamp: TimeInterval
     let source: FixtureSource
     let adapter: FixtureAdapter?
-    let smartBattery: FixtureSmartBattery?
     let expected: FixtureExpected
 }
 
@@ -113,24 +110,6 @@ private struct FixtureAdapter: Codable {
         }
 
         return dictionary
-    }
-}
-
-private struct FixtureSmartBattery: Codable {
-    let amperagemA: Int?
-    let voltagemV: Int?
-    let isCharging: Bool?
-    let externalConnected: Bool?
-    let externalChargeCapable: Bool?
-
-    func asSmartBatterySnapshot() -> AppleSmartBatterySnapshot {
-        AppleSmartBatterySnapshot(
-            amperagemA: amperagemA,
-            voltagemV: voltagemV,
-            isCharging: isCharging,
-            externalConnected: externalConnected,
-            externalChargeCapable: externalChargeCapable
-        )
     }
 }
 

@@ -22,9 +22,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let source = IOKitPowerTelemetrySource()
         let engine = SamplingEngine(
             source: source,
-            sampleInterval: 1.0,
-            filterWindowSize: 5,
-            historyCapacity: 1800
+            sampleInterval: 1.0
         )
 
         let viewModel = StatusBarViewModel()

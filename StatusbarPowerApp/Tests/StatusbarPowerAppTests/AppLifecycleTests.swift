@@ -23,10 +23,9 @@ final class AppLifecycleTests: XCTestCase {
             derivedMetrics: DerivedPowerMetrics(
                 batteryPowerW: 24.0,
                 adapterWatts: 67,
-                chargeState: .charging
+                chargeState: .charging,
+                powerSourceState: .ac
             ),
-            smoothedBatteryPowerW: 24.0,
-            history: [HistoryPoint(timestamp: Date(timeIntervalSince1970: 1_700_000_000), batteryPowerW: 24.0)],
             lastSampleTimestamp: Date(timeIntervalSince1970: 1_700_000_000),
             errorMessage: nil
         )
@@ -34,7 +33,7 @@ final class AppLifecycleTests: XCTestCase {
         fakeController.emit(update)
         RunLoop.main.run(until: Date().addingTimeInterval(0.02))
 
-        XCTAssertEqual(viewModel.statusText, "24W")
+        XCTAssertEqual(viewModel.statusText, "67W")
         XCTAssertEqual(viewModel.adapterWattsText, "Adapter Power: 67 W")
 
         lifecycle.stop()

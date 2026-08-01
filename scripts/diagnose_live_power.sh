@@ -27,6 +27,13 @@ if list.isEmpty {
         let stateLabel = state ?? "nil"
 
         print("source[\(index)] current(mA)=\(String(describing: current)) voltage(mV)=\(String(describing: voltage)) isCharging=\(String(describing: isCharging)) state=\(stateLabel)")
+
+        if let current, let voltage {
+            let batteryWatts = (Double(current) * Double(voltage)) / 1_000_000.0
+            print("source[\(index)] derived battery watts=\(batteryWatts)")
+        } else {
+            print("source[\(index)] derived battery watts unavailable (missing current or voltage)")
+        }
     }
 }
 
@@ -36,53 +43,5 @@ if let adapterDetails = IOPSCopyExternalPowerAdapterDetails()?.takeRetainedValue
     print("adapter watts=\(String(describing: adapterWatts)) current(mA)=\(String(describing: adapterCurrent))")
 } else {
     print("adapter details unavailable")
-}
-SWIFT
-
-printf '\n=== AppleSmartBattery Registry ===\n'
-swift - <<'SWIFT'
-import Foundation
-import IOKit
-
-let service = IOServiceGetMatchingService(kIOMainPortDefault, IOServiceMatching("AppleSmartBattery"))
-guard service != 0 else {
-    print("AppleSmartBattery service unavailable")
-    exit(0)
-}
-
-defer { IOObjectRelease(service) }
-
-func intProperty(_ key: String) -> Int? {
-    guard let value = IORegistryEntryCreateCFProperty(service, key as CFString, kCFAllocatorDefault, 0)?.takeRetainedValue() else {
-        return nil
-    }
-    return (value as? NSNumber)?.intValue
-}
-
-func boolProperty(_ key: String) -> Bool? {
-    guard let value = IORegistryEntryCreateCFProperty(service, key as CFString, kCFAllocatorDefault, 0)?.takeRetainedValue() else {
-        return nil
-    }
-    if let boolValue = value as? Bool {
-        return boolValue
-    }
-    return (value as? NSNumber)?.boolValue
-}
-
-let amperage = intProperty("Amperage")
-let voltage = intProperty("Voltage")
-let isCharging = boolProperty("IsCharging")
-let externalConnected = boolProperty("ExternalConnected")
-let externalChargeCapable = boolProperty("ExternalChargeCapable")
-
-print("amperage(mA)=\(String(describing: amperage))")
-print("voltage(mV)=\(String(describing: voltage))")
-print("isCharging=\(String(describing: isCharging))")
-print("externalConnected=\(String(describing: externalConnected))")
-print("externalChargeCapable=\(String(describing: externalChargeCapable))")
-
-if let amperage, let voltage {
-    let watts = (Double(amperage) * Double(voltage)) / 1_000_000.0
-    print("derived battery watts=\(watts)")
 }
 SWIFT

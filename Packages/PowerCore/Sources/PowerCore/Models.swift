@@ -56,21 +56,18 @@ public struct DerivedPowerMetrics: Equatable, Sendable {
     public let batteryPowerW: Double?
     public let adapterWatts: Int?
     public let chargeState: ChargeState
+    public let powerSourceState: PowerSourceState?
 
-    public init(batteryPowerW: Double?, adapterWatts: Int?, chargeState: ChargeState) {
+    public init(
+        batteryPowerW: Double?,
+        adapterWatts: Int?,
+        chargeState: ChargeState,
+        powerSourceState: PowerSourceState? = nil
+    ) {
         self.batteryPowerW = batteryPowerW
         self.adapterWatts = adapterWatts
         self.chargeState = chargeState
-    }
-}
-
-public struct HistoryPoint: Equatable, Sendable {
-    public let timestamp: Date
-    public let batteryPowerW: Double
-
-    public init(timestamp: Date, batteryPowerW: Double) {
-        self.timestamp = timestamp
-        self.batteryPowerW = batteryPowerW
+        self.powerSourceState = powerSourceState
     }
 }
 
@@ -82,23 +79,17 @@ public enum PowerTelemetryError: Error, Equatable {
 public struct SamplingUpdate: Sendable {
     public let rawSnapshot: RawPowerSnapshot?
     public let derivedMetrics: DerivedPowerMetrics?
-    public let smoothedBatteryPowerW: Double?
-    public let history: [HistoryPoint]
     public let lastSampleTimestamp: Date?
     public let errorMessage: String?
 
     public init(
         rawSnapshot: RawPowerSnapshot?,
         derivedMetrics: DerivedPowerMetrics?,
-        smoothedBatteryPowerW: Double?,
-        history: [HistoryPoint],
         lastSampleTimestamp: Date?,
         errorMessage: String?
     ) {
         self.rawSnapshot = rawSnapshot
         self.derivedMetrics = derivedMetrics
-        self.smoothedBatteryPowerW = smoothedBatteryPowerW
-        self.history = history
         self.lastSampleTimestamp = lastSampleTimestamp
         self.errorMessage = errorMessage
     }
