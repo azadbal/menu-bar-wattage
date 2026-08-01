@@ -1,6 +1,8 @@
+
 # Statusbar Power
 
 Statusbar Power is a small macOS menu-bar utility for checking the wattage reported by your connected charging adapter.
+<img width="280" height="180" alt="Desktop - 1" src="https://github.com/user-attachments/assets/8e91fa2c-dcdb-416f-aaca-1b7a98326e1f" />
 
 ## What the menu-bar value means
 
