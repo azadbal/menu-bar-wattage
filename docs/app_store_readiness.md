@@ -44,9 +44,9 @@
 - SKU, primary language, app name
 2. Fill required metadata:
 - Description and keywords
-- Support URL
+- Support URL: `https://github.com/azadbal/statusbar_power`
 - Marketing URL (optional but recommended)
-- Privacy Policy URL (required)
+- Privacy Policy URL (required): `https://github.com/azadbal/statusbar_power/blob/main/PRIVACY.md`
 3. Upload screenshots in valid macOS sizes (at least one set):
 - `1280x800`, `1440x900`, `2560x1600`, or `2880x1800`
 4. Fill review information:
