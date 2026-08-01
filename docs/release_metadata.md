@@ -8,7 +8,7 @@ Statusbar Power
 
 ## Subtitle
 
-See your charging adapter's negotiated wattage in the menu bar.
+See adapter watts in menu bar.
 
 ## Description
 
