@@ -1,7 +1,7 @@
 # Manual Hardware Verification Checklist
 
 ## Preconditions
-- Build and launch the app from `/Users/azadbalabanian/Desktop/DEV/statusbar_power/StatusbarPowerApp`.
+- For the Launch at Login test, use the signed Release copy installed at `/Applications/StatusbarPower.app`.
 - Confirm a status item appears in the menu bar.
 - Click the status item and confirm the menu is compact, names Statusbar Power, shows one current-state line, and contains Launch at Login and Quit.
 - Run `/Users/azadbalabanian/Desktop/DEV/statusbar_power/scripts/diagnose_live_power.sh` to capture current telemetry baselines.
@@ -17,6 +17,8 @@
 - Expected status transition within a few seconds: `NNW` (rounded watts).
 - Confirm the menu says `NNW from charging adapter.` and does not repeat the wattage in separate Status and Adapter rows.
 - Toggle `Launch at Login` on, quit and relaunch the app, then confirm the menu item remains enabled. Toggle it back off after testing if desired.
+
+The final restart verification is intentionally manual: after enabling Launch at Login, quit the app and restart macOS, then confirm the menu-bar item appears automatically. This is the remaining user-owned test.
 
 ## Scenario 3: AC Connected While Full or Near Full
 - Leave device on AC near 100%.

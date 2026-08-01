@@ -6,6 +6,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: "6.0"
+    ARCHS: arm64
 packages:
   PowerCore:
     path: ../Packages/PowerCore
@@ -22,6 +23,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.azadbalabanian.statusbarpower.ui
         CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: 2F328AJX43
         GENERATE_INFOPLIST_FILE: YES
         MACOSX_DEPLOYMENT_TARGET: "13.0"
 
@@ -38,6 +40,9 @@ targets:
         product: PowerCore
     info:
       path: Resources/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        LSApplicationCategoryType: public.app-category.utilities
     entitlements:
       path: Resources/StatusbarPowerApp.entitlements
       properties:
@@ -48,6 +53,7 @@ targets:
         PRODUCT_NAME: StatusbarPower
         CODE_SIGN_STYLE: Automatic
         CURRENT_PROJECT_VERSION: 1
+        DEVELOPMENT_TEAM: 2F328AJX43
         MARKETING_VERSION: 1.0.0
         MACOSX_DEPLOYMENT_TARGET: "13.0"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

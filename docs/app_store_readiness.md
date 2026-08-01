@@ -37,6 +37,8 @@
 3. Keep App Sandbox enabled with minimal entitlements.
 4. Configure a separate direct-distribution path using a `Developer ID Application` certificate and Hardened Runtime. The App Store and GitHub artifacts must be signed for their respective distribution channels.
 
+Current local state: the Xcode account is selected for team `2F328AJX43`, and an arm64 Apple-development-signed Release build is installed at `/Applications/StatusbarPower.app` for the Launch at Login restart test. Apple Distribution and Developer ID Application certificates are still required for distribution.
+
 ## App Store Connect Setup
 1. Create app record:
 - Platform: macOS
@@ -73,6 +75,8 @@
 4. Verify the notarized artifact with `spctl` before publishing.
 5. Attach the notarized package and a SHA-256 checksum to the matching GitHub Release.
 6. Keep the GitHub artifact and Mac App Store build identifiable as separate distribution artifacts, even when they share the same app version.
+
+Listing copy and review answers are prepared in `/Users/azadbalabanian/Desktop/DEV/statusbar_power/docs/release_metadata.md`.
 
 ## Product Messaging Requirements
 - Explain metric semantics clearly:
