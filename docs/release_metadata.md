@@ -8,7 +8,7 @@ Statusbar Power
 
 ## Subtitle
 
-See adapter watts in menu bar.
+See charging watts in menu bar.
 
 ## Description
 
