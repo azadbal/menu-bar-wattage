@@ -30,7 +30,7 @@ The `IOKit.ps` path is a documented/public macOS API surface and is compatible w
 
 - Apple defines `kIOPSIsChargedKey` as the battery’s charged state and notes that a battery can be plugged in, not charging, and still be considered charged (for example, at capacity of 95% or greater). This does not redefine the adapter API or imply that adapter wattage must disappear. [kIOPSIsChargedKey](https://developer.apple.com/documentation/iokit/kiopsischargedkey)
 
-- The safe product behavior is therefore: show adapter watts only when the external-power state and optional adapter `Watts` value are present; show an unavailable state when the adapter dictionary is `NULL`, when `Watts` is absent, or when the system is on battery. Do not convert missing data into zero. The missing-value cases are explicit in Apple’s API contract. [IOPSCopyExternalPowerAdapterDetails](https://developer.apple.com/documentation/iokit/1523866-iopscopyexternalpoweradapterdeta), [kIOPSPowerAdapterWattsKey](https://developer.apple.com/documentation/iokit/kiopspoweradapterwattskey)
+- The safe product behavior is therefore: show adapter watts only when the external-power state and optional adapter `Watts` value are present; show `\` when the system is on battery; show an unavailable state when AC is present but the adapter dictionary is `NULL` or `Watts` is absent. Do not convert missing data into zero. The missing-value cases are explicit in Apple’s API contract. [IOPSCopyExternalPowerAdapterDetails](https://developer.apple.com/documentation/iokit/1523866-iopscopyexternalpoweradapterdeta), [kIOPSPowerAdapterWattsKey](https://developer.apple.com/documentation/iokit/kiopspoweradapterwattskey)
 
 ### Public availability and Apple Silicon
 

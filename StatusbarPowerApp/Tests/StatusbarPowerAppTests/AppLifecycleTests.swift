@@ -6,10 +6,7 @@ import StatusbarPowerUI
 final class AppLifecycleTests: XCTestCase {
     func testLifecycleStartStopAndUpdateFlow() {
         let fakeController = FakeSamplingController()
-        let viewModel = StatusBarViewModel(
-            locale: Locale(identifier: "en_US_POSIX"),
-            timeZone: TimeZone(secondsFromGMT: 0)!
-        )
+        let viewModel = StatusBarViewModel()
 
         let lifecycle = AppLifecycle(engine: fakeController, viewModel: viewModel)
 
@@ -34,7 +31,7 @@ final class AppLifecycleTests: XCTestCase {
         RunLoop.main.run(until: Date().addingTimeInterval(0.02))
 
         XCTAssertEqual(viewModel.statusText, "67W")
-        XCTAssertEqual(viewModel.adapterWattsText, "Adapter Power: 67 W")
+        XCTAssertEqual(viewModel.statusDetailText, "67W from charging adapter.")
 
         lifecycle.stop()
 

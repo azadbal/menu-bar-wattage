@@ -7,11 +7,17 @@ import SwiftUI
 public final class StatusItemController: NSObject {
     private let statusItem: NSStatusItem
     private let viewModel: StatusBarViewModel
+    private let launchAtLoginController: LaunchAtLoginControlling
     private var cancellables: Set<AnyCancellable>
+    private weak var launchAtLoginItem: NSMenuItem?
 
-    public init(viewModel: StatusBarViewModel) {
+    public init(
+        viewModel: StatusBarViewModel,
+        launchAtLoginController: LaunchAtLoginControlling = SystemLaunchAtLoginController()
+    ) {
         self.statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         self.viewModel = viewModel
+        self.launchAtLoginController = launchAtLoginController
         self.cancellables = []
         super.init()
 
@@ -34,11 +40,23 @@ public final class StatusItemController: NSObject {
 
         let diagnosticsView = StatusMenuView(viewModel: viewModel)
         let hostingView = NSHostingView(rootView: diagnosticsView)
-        hostingView.frame = NSRect(x: 0, y: 0, width: 360, height: 300)
+        hostingView.frame = NSRect(x: 0, y: 0, width: 260, height: 68)
 
         let graphItem = NSMenuItem()
         graphItem.view = hostingView
         menu.addItem(graphItem)
+
+        menu.addItem(.separator())
+
+        let launchAtLoginItem = NSMenuItem(
+            title: "Launch at Login",
+            action: #selector(toggleLaunchAtLogin),
+            keyEquivalent: ""
+        )
+        launchAtLoginItem.target = self
+        launchAtLoginItem.state = launchAtLoginController.isEnabled ? .on : .off
+        menu.addItem(launchAtLoginItem)
+        self.launchAtLoginItem = launchAtLoginItem
 
         menu.addItem(.separator())
 
@@ -51,7 +69,6 @@ public final class StatusItemController: NSObject {
 
     private func bindViewModel() {
         viewModel.$statusText
-            .receive(on: RunLoop.main)
             .sink { [weak self] statusText in
                 self?.statusItem.button?.title = statusText
             }
@@ -60,5 +77,16 @@ public final class StatusItemController: NSObject {
 
     @objc private func quitApp() {
         NSApplication.shared.terminate(nil)
+    }
+
+    @objc private func toggleLaunchAtLogin() {
+        let enabled = !launchAtLoginController.isEnabled
+
+        do {
+            try launchAtLoginController.setEnabled(enabled)
+            launchAtLoginItem?.state = launchAtLoginController.isEnabled ? .on : .off
+        } catch {
+            launchAtLoginItem?.state = launchAtLoginController.isEnabled ? .on : .off
+        }
     }
 }

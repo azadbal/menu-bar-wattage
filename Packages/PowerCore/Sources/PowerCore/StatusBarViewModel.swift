@@ -4,26 +4,12 @@ import Foundation
 @MainActor
 public final class StatusBarViewModel: ObservableObject {
     @Published public private(set) var statusText: String
-    @Published public private(set) var adapterWattsText: String
-    @Published public private(set) var statusExplanationText: String?
-    @Published public private(set) var lastUpdatedText: String
+    @Published public private(set) var statusDetailText: String
     @Published public private(set) var errorText: String?
 
-    private let dateFormatter: DateFormatter
-
-    public init(locale: Locale = .current, timeZone: TimeZone = .current) {
+    public init() {
         statusText = "-"
-        adapterWattsText = "Adapter Power: Unavailable"
-        statusExplanationText = "Adapter wattage is unavailable."
-        lastUpdatedText = "Updated: --"
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = locale
-        dateFormatter.timeZone = timeZone
-        dateFormatter.calendar = Calendar(identifier: .gregorian)
-        dateFormatter.dateFormat = "HH:mm:ss"
-        self.dateFormatter = dateFormatter
-
+        statusDetailText = "Power status unavailable."
     }
 
     public func bind(engine: SamplingEngine) {
@@ -39,48 +25,39 @@ public final class StatusBarViewModel: ObservableObject {
             powerSourceState: derivedMetrics?.powerSourceState,
             adapterWatts: derivedMetrics?.adapterWatts
         )
-        adapterWattsText = adapterPowerText(from: derivedMetrics?.adapterWatts)
-        statusExplanationText = explanationText(
+        statusDetailText = detailText(
             powerSourceState: derivedMetrics?.powerSourceState,
             adapterWatts: derivedMetrics?.adapterWatts
         )
-        lastUpdatedText = lastUpdatedText(from: update.lastSampleTimestamp)
         errorText = update.errorMessage
     }
 
     private func statusText(powerSourceState: PowerSourceState?, adapterWatts: Int?) -> String {
-        guard powerSourceState == .ac, let adapterWatts else {
-            return "-"
+        if powerSourceState == .ac, let adapterWatts {
+            return "\(adapterWatts)W"
         }
 
-        return "\(adapterWatts)W"
-    }
-
-    private func adapterPowerText(from watts: Int?) -> String {
-        guard let watts else {
-            return "Adapter Power: Unavailable"
+        if powerSourceState == .battery || powerSourceState == .offline {
+            return "\\"
         }
 
-        return "Adapter Power: \(watts) W"
+        return "-"
     }
 
-    private func explanationText(powerSourceState: PowerSourceState?, adapterWatts: Int?) -> String? {
-        guard powerSourceState != .ac || adapterWatts == nil else {
-            return nil
+    private func detailText(powerSourceState: PowerSourceState?, adapterWatts: Int?) -> String {
+        if powerSourceState == .ac, let adapterWatts {
+            return "\(adapterWatts)W from charging adapter."
         }
 
         if powerSourceState == .ac {
-            return "Adapter wattage is unavailable."
+            return "Charging adapter wattage unavailable."
         }
 
-        return "No external power is connected, so there is no adapter wattage to show."
-    }
-
-    private func lastUpdatedText(from date: Date?) -> String {
-        guard let date else {
-            return "Updated: --"
+        if powerSourceState == .battery || powerSourceState == .offline {
+            return "Using battery power. No charging detected."
         }
 
-        return "Updated: \(dateFormatter.string(from: date))"
+        return "Power status unavailable."
     }
+
 }

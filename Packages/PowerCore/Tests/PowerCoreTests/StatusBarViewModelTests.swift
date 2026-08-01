@@ -4,7 +4,7 @@ import XCTest
 @MainActor
 final class StatusBarViewModelTests: XCTestCase {
     func testStatusTextStates() {
-        let viewModel = StatusBarViewModel(locale: Locale(identifier: "en_US_POSIX"), timeZone: TimeZone(secondsFromGMT: 0)!)
+        let viewModel = StatusBarViewModel()
         let now = Date(timeIntervalSince1970: 1_700_000_000)
 
         XCTAssertEqual(viewModel.statusText, "-")
@@ -16,7 +16,7 @@ final class StatusBarViewModelTests: XCTestCase {
             errorMessage: nil
         ))
         XCTAssertEqual(viewModel.statusText, "70W")
-        XCTAssertNil(viewModel.statusExplanationText)
+        XCTAssertEqual(viewModel.statusDetailText, "70W from charging adapter.")
 
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
@@ -24,8 +24,8 @@ final class StatusBarViewModelTests: XCTestCase {
             lastSampleTimestamp: now,
             errorMessage: nil
         ))
-        XCTAssertEqual(viewModel.statusText, "-")
-        XCTAssertEqual(viewModel.statusExplanationText, "No external power is connected, so there is no adapter wattage to show.")
+        XCTAssertEqual(viewModel.statusText, "\\")
+        XCTAssertEqual(viewModel.statusDetailText, "Using battery power. No charging detected.")
 
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
@@ -34,7 +34,7 @@ final class StatusBarViewModelTests: XCTestCase {
             errorMessage: nil
         ))
         XCTAssertEqual(viewModel.statusText, "70W")
-        XCTAssertNil(viewModel.statusExplanationText)
+        XCTAssertEqual(viewModel.statusDetailText, "70W from charging adapter.")
 
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
@@ -43,6 +43,7 @@ final class StatusBarViewModelTests: XCTestCase {
             errorMessage: nil
         ))
         XCTAssertEqual(viewModel.statusText, "96W")
+        XCTAssertEqual(viewModel.statusDetailText, "96W from charging adapter.")
 
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
@@ -51,7 +52,7 @@ final class StatusBarViewModelTests: XCTestCase {
             errorMessage: nil
         ))
         XCTAssertEqual(viewModel.statusText, "-")
-        XCTAssertEqual(viewModel.statusExplanationText, "Adapter wattage is unavailable.")
+        XCTAssertEqual(viewModel.statusDetailText, "Charging adapter wattage unavailable.")
 
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
@@ -60,11 +61,11 @@ final class StatusBarViewModelTests: XCTestCase {
             errorMessage: "oops"
         ))
         XCTAssertEqual(viewModel.statusText, "-")
-        XCTAssertEqual(viewModel.statusExplanationText, "No external power is connected, so there is no adapter wattage to show.")
+        XCTAssertEqual(viewModel.statusDetailText, "Power status unavailable.")
     }
 
-    func testDropdownTextsAndTimestampFormatting() {
-        let viewModel = StatusBarViewModel(locale: Locale(identifier: "en_US_POSIX"), timeZone: TimeZone(secondsFromGMT: 0)!)
+    func testDropdownTextUsesSingleCurrentStatusLine() {
+        let viewModel = StatusBarViewModel()
         let now = Date(timeIntervalSince1970: 1_700_000_000)
 
         viewModel.apply(update: SamplingUpdate(
@@ -74,8 +75,7 @@ final class StatusBarViewModelTests: XCTestCase {
             errorMessage: nil
         ))
 
-        XCTAssertEqual(viewModel.adapterWattsText, "Adapter Power: 67 W")
-        XCTAssertEqual(viewModel.lastUpdatedText, "Updated: 22:13:20")
+        XCTAssertEqual(viewModel.statusDetailText, "67W from charging adapter.")
         viewModel.apply(update: SamplingUpdate(
             rawSnapshot: nil,
             derivedMetrics: DerivedPowerMetrics(batteryPowerW: nil, adapterWatts: nil, chargeState: .unknown),
@@ -83,7 +83,6 @@ final class StatusBarViewModelTests: XCTestCase {
             errorMessage: nil
         ))
 
-        XCTAssertEqual(viewModel.adapterWattsText, "Adapter Power: Unavailable")
-        XCTAssertEqual(viewModel.lastUpdatedText, "Updated: --")
+        XCTAssertEqual(viewModel.statusDetailText, "Power status unavailable.")
     }
 }

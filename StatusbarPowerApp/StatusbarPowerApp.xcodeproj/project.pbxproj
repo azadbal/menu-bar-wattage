@@ -15,6 +15,7 @@
 		8570901F8DAACC6C4D2F7EAC /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C057C343BE91CDC720F697 /* StatusItemController.swift */; };
 		8A3DF7E7AD743F826057C444 /* AppMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963F4C45DA720BD553C058FE /* AppMain.swift */; };
 		8CDD05E1DFEF170253FB5360 /* PowerCore in Frameworks */ = {isa = PBXBuildFile; productRef = B35385EDAD08F1E7606FCC7B /* PowerCore */; };
+		B4F36CFAAD0D53E132839131 /* LaunchAtLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBFD24D2346D6B7360AC44 /* LaunchAtLoginController.swift */; };
 		CF5E2C6AEADA3881A864007B /* AppLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1AEB11EFE7CA9EB0C52E95 /* AppLifecycleTests.swift */; };
 		D479E9A42CAEEB55C947A027 /* PowerCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5364A2E1C20AABCDB5D60CE4 /* PowerCore */; };
 		E3ED31AFCEC4D946EDE9FFF3 /* StatusbarPowerUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A210BDA91033FA600355CD4 /* StatusbarPowerUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -71,6 +72,7 @@
 		6A210BDA91033FA600355CD4 /* StatusbarPowerUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StatusbarPowerUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		72DBF6C0B689E8EF8988F75C /* PowerCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PowerCore; path = ../Packages/PowerCore; sourceTree = SOURCE_ROOT; };
 		963F4C45DA720BD553C058FE /* AppMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMain.swift; sourceTree = "<group>"; };
+		B9FBFD24D2346D6B7360AC44 /* LaunchAtLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginController.swift; sourceTree = "<group>"; };
 		EC58F019378CB25572CB6918 /* StatusbarPowerAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatusbarPowerAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3146CE69395C70E799D371B /* StatusbarPowerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StatusbarPowerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				57D6796ADFB9D17C8D1CED79 /* AppLifecycle.swift */,
+				B9FBFD24D2346D6B7360AC44 /* LaunchAtLoginController.swift */,
 				09C057C343BE91CDC720F697 /* StatusItemController.swift */,
 				610F55505F31A1E0F4F72582 /* StatusMenuView.swift */,
 			);
@@ -290,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EC748EBF791D7EB6C7B839A /* AppLifecycle.swift in Sources */,
+				B4F36CFAAD0D53E132839131 /* LaunchAtLoginController.swift in Sources */,
 				8570901F8DAACC6C4D2F7EAC /* StatusItemController.swift in Sources */,
 				4CC16AFBD568438CDE26657C /* StatusMenuView.swift in Sources */,
 			);

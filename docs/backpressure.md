@@ -4,14 +4,14 @@ This document defines the blocking quality gates for this project.
 
 ## Goal Lock
 - Primary goal: a macOS menu bar app that reports adapter-reported watts when external power is connected.
-- Accepted compact status values: `NNW` when adapter watts are available, `-` otherwise.
+- Accepted compact status values: `NNW` when adapter watts are available on AC, `\` on battery, and `-` only when power state or adapter wattage is unavailable.
 - Adapter watts are not a claim about real-time battery charging rate or total Mac power consumption.
 
 ## Mandatory Gates
 1. No production behavior change without a failing test or fixture first.
 2. Any telemetry parsing change must update fixture replay coverage.
 3. Formula and charge-state transitions must be deterministic under unit tests before UI wiring changes.
-4. Status label and dropdown string changes must include view-model assertion updates.
+4. Status label and detail-line changes must include view-model assertion updates.
 5. A phase is not done until `scripts/test_all.sh` passes and manual checklist is completed.
 
 ## Automated Gates
