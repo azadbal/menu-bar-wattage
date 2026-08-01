@@ -22,6 +22,17 @@ The Mac must have:
 
 Use an app-specific password, never a normal Apple ID password. The profile name is local to the keychain and is not committed.
 
+## Simple GitHub Release
+
+For a straightforward signed download without Apple notarization, use the installed Developer ID certificate and skip the Apple credential step:
+
+```sh
+RELEASE_TAG=v1.0.0 \
+./scripts/direct_distribution.sh --publish --skip-notarization
+```
+
+This creates the arm64 ZIP, checksum, and GitHub Release upload without requiring an Apple ID password or notarytool profile. Because the ZIP is not notarized, macOS may show a Gatekeeper warning; users can Control-click the app and choose Open.
+
 ## Build and notarize
 
 From the repository root, set the local profile name and run:

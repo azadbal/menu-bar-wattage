@@ -14,12 +14,12 @@ RELEASE_TAG="${RELEASE_TAG:-}"
 
 usage() {
   cat <<'EOF'
-Usage: scripts/direct_distribution.sh [--publish]
+Usage: scripts/direct_distribution.sh [--publish] [--skip-notarization]
 
 Builds, signs, notarizes, staples, and verifies the direct-distribution ZIP.
 
 Required environment:
-  NOTARY_PROFILE   notarytool keychain profile name
+  NOTARY_PROFILE   notarytool keychain profile name (unless --skip-notarization)
 
 Optional environment:
   SIGNING_IDENTITY Developer ID signing identity (default: Developer ID Application)
@@ -29,16 +29,20 @@ Optional environment:
   DERIVED_DATA_PATH, ARCHIVE_PATH, ARTIFACT_DIR override build output paths
 
 Pass --publish to upload the ZIP and its SHA-256 checksum with gh to RELEASE_TAG.
+Pass --skip-notarization for a signed ZIP without Apple's notarization step.
 EOF
 }
 
 publish=false
-case "${1:-}" in
-  "") ;;
-  --publish) publish=true ;;
-  --help|-h) usage; exit 0 ;;
-  *) usage >&2; exit 2 ;;
-esac
+skip_notarization=false
+for argument in "$@"; do
+  case "$argument" in
+    --publish) publish=true ;;
+    --skip-notarization) skip_notarization=true ;;
+    --help|-h) usage; exit 0 ;;
+    *) usage >&2; exit 2 ;;
+  esac
+done
 
 for command_name in xcodebuild xcodegen codesign ditto xcrun spctl shasum rg; do
   if ! command -v "$command_name" >/dev/null 2>&1; then
@@ -52,7 +56,7 @@ if [[ ! -x /usr/libexec/PlistBuddy ]]; then
   exit 1
 fi
 
-if [[ -z "$NOTARY_PROFILE" ]]; then
+if [[ "$skip_notarization" == false && -z "$NOTARY_PROFILE" ]]; then
   printf 'NOTARY_PROFILE must name a configured xcrun notarytool keychain profile.\n' >&2
   exit 1
 fi
@@ -125,23 +129,36 @@ codesign --display --verbose=4 "$APP_PATH" 2>&1 | rg -q 'flags=0x10000\(runtime\
   exit 1
 }
 
-printf '[3/5] Creating and notarizing ZIP...\n'
+printf '[3/5] Creating ZIP...\n'
 ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "$ZIP_PATH"
-xcrun notarytool submit "$ZIP_PATH" --keychain-profile "$NOTARY_PROFILE" --wait
+if [[ "$skip_notarization" == false ]]; then
+  printf 'Submitting ZIP for notarization...\n'
+  xcrun notarytool submit "$ZIP_PATH" --keychain-profile "$NOTARY_PROFILE" --wait
+fi
 
-printf '[4/5] Stapling and verifying notarization...\n'
-xcrun stapler staple "$APP_PATH"
-xcrun stapler validate "$APP_PATH"
-spctl --assess --type execute --verbose=4 "$APP_PATH"
+printf '[4/5] Verifying distribution...\n'
+if [[ "$skip_notarization" == false ]]; then
+  xcrun stapler staple "$APP_PATH"
+  xcrun stapler validate "$APP_PATH"
+  spctl --assess --type execute --verbose=4 "$APP_PATH"
+else
+  printf 'Skipping notarization, stapling, and Gatekeeper assessment.\n'
+fi
 
-rm -f "$ZIP_PATH"
-ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "$ZIP_PATH"
+if [[ "$skip_notarization" == false ]]; then
+  rm -f "$ZIP_PATH"
+  ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "$ZIP_PATH"
+fi
 shasum -a 256 "$ZIP_PATH" > "$CHECKSUM_PATH"
 
 FINAL_VERIFY_DIR="$(mktemp -d "${TMPDIR:-/tmp}/menu-bar-wattage-verify.XXXXXX")"
 trap 'rm -rf "$FINAL_VERIFY_DIR"' EXIT
 ditto -x -k "$ZIP_PATH" "$FINAL_VERIFY_DIR"
-spctl --assess --type execute --verbose=4 "$FINAL_VERIFY_DIR/MenuBarWattage.app"
+if [[ "$skip_notarization" == false ]]; then
+  spctl --assess --type execute --verbose=4 "$FINAL_VERIFY_DIR/MenuBarWattage.app"
+else
+  codesign --verify --deep --strict "$FINAL_VERIFY_DIR/MenuBarWattage.app"
+fi
 
 printf '[5/5] Direct-distribution artifacts ready.\n'
 printf 'ZIP: %s\nSHA-256: %s\n' "$ZIP_PATH" "$CHECKSUM_PATH"
