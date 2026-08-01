@@ -2,7 +2,7 @@
 
 Menu Bar Wattage is a small macOS menu-bar utility for checking the wattage reported by your connected charging adapter.
 
-<img width="280" height="180" alt="Desktop - 1" src="https://github.com/user-attachments/assets/8e91fa2c-dcdb-416f-aaca-1b7a98326e1f" />
+<img width="280" height="180" alt="Desktop - 1"  src="https://github.com/user-attachments/assets/89eaa9f0-606a-46f8-9d5a-26d70023096f" />
 
 ## What the menu-bar value means
 
